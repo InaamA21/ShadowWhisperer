@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Overview</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #ddd;
+            text-align: center;
+            overflow-x: hidden;
+        }
+        .header {
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .blog-container {
+            max-width: 800px;
+            margin: 30px auto;
+            overflow: hidden;
+            display: flex;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+        }
+        .blog-post {
+            background: #222;
+            padding: 20px;
+            min-width: 95%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: left;
+            scroll-snap-align: start;
+        }
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .actions button {
+            background-color: transparent;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #fff;
+        }
+        .actions button:hover {
+            color: #ff6347;
+        }
+        .comment-section {
+            margin-top: 10px;
+        }
+        .comment {
+            background: #333;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-around;
+            background-color: #222;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+        .footer button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 20px;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .footer button:hover {
+            background-color: #555;
+        }
+        .footer .center button {
+            background-color: #ff6347;
+        }
+        .footer .left button {
+            background-color: #008CBA;
+        }
+        .footer .right button {
+            background-color: #4CAF50;
+        }
+        .left, .right {
+            position: fixed;
+            bottom: 20px;
+        }
+        .left {
+            left: 20px;
+        }
+        .right {
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">All Released Blogs</div>
+
+    <div class="blog-container">
+        <div class="blog-post" id="blog1">
+            <h2>First Blog Post</h2>
+            <p>This is a short preview of the first blog post...</p>
+            <div class="actions">
+                <button onclick="likePost(this)">👍 Like (<span>0</span>)</button>
+                <button onclick="showCommentSection('comments1')">💬 Comment</button>
+                <button onclick="sharePost()">🔗 Share</button>
+                <button onclick="repostPost()">🔄 Repost</button>
+            </div>
+            <div id="comments1" class="comment-section" style="display:none;">
+                <input type="text" id="commentInput1" placeholder="Write a comment..." onkeydown="addComment(event, 'commentsList1')">
+                <div id="commentsList1"></div>
+            </div>
+        </div>
+
+        <div class="blog-post" id="blog2">
+            <h2>Second Blog Post</h2>
+            <p>Another interesting blog post summary...</p>
+            <div class="actions">
+                <button onclick="likePost(this)">👍 Like (<span>0</span>)</button>
+                <button onclick="showCommentSection('comments2')">💬 Comment</button>
+                <button onclick="sharePost()">🔗 Share</button>
+                <button onclick="repostPost()">🔄 Repost</button>
+            </div>
+            <div id="comments2" class="comment-section" style="display:none;">
+                <input type="text" id="commentInput2" placeholder="Write a comment..." onkeydown="addComment(event, 'commentsList2')">
+                <div id="commentsList2"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <button onclick="window.location.href='create_blog.html'">+</button>
+    </div>
+
+    <div class="left">
+        <button onclick="window.location.href='search.html'">🔍</button>
+    </div>
+
+    <div class="right">
+        <button onclick="window.location.href='chat.html'">💬</button>
+        <button onclick="window.location.href='account.html'">👤</button>
+    </div>
+
+    <script>
+        function likePost(button) {
+            let span = button.querySelector("span");
+            let count = parseInt(span.innerText);
+            span.innerText = count + 1;
+        }
+
+        function showCommentSection(id) {
+            let section = document.getElementById(id);
+            section.style.display = section.style.display === "none" ? "block" : "none";
+        }
+
+        function addComment(event, commentListId) {
+            if (event.key === "Enter" && event.target.value.trim() !== "") {
+                let commentList = document.getElementById(commentListId);
+                let commentText = event.target.value.trim();
+                
+                let commentDiv = document.createElement("div");
+                commentDiv.classList.add("comment");
+                commentDiv.innerHTML = `<span>${commentText}</span> <button onclick="likeComment(this)">👍 (0)</button>`;
+                
+                commentList.appendChild(commentDiv);
+                event.target.value = "";
+            }
+        }
+
+        function likeComment(button) {
+            let count = button.innerText.match(/\d+/)[0];
+            button.innerHTML = `👍 (${parseInt(count) + 1})`;
+        }
+
+        function sharePost() {
+            alert("Share this post with your contacts!");
+        }
+
+        function repostPost() {
+            alert("You have reposted this blog!");
+        }
+
+        let container = document.querySelector(".blog-container");
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        container.addEventListener("mousedown", (e) => {
+            isDown = true;
+            container.classList.add("active");
+            startX = e.pageX - container.offsetLeft;
+            scrollLeft = container.scrollLeft;
+        });
+
+        container.addEventListener("mouseleave", () => isDown = false);
+        container.addEventListener("mouseup", () => isDown = false);
+        container.addEventListener("mousemove", (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - container.offsetLeft;
+            const walk = (x - startX) * 2;
+            container.scrollLeft = scrollLeft - walk;
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #ddd;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #090909;
+            color: white;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.4);
+        }
+        .contact {
+            padding: 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #444;
+            transition: background-color 0.3s;
+        }
+        .contact:hover {
+            background-color: #444;
+        }
+        .contact.active {
+            background-color: #4e805e;
+        }
+        .chat-area {
+            flex-grow: 1;
+            background-color: #222;
+            padding: 20px;
+            box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        .messages {
+            max-height: 75vh;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        .message {
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #333;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 80%;
+        }
+        .message.sent {
+            background-color: #4e805e;
+            margin-left: auto;
+        }
+        .message.received {
+            background-color: #555;
+        }
+        .input-box {
+            display: flex;
+            justify-content: space-between;
+        }
+        .input-box input {
+            width: 80%;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            border: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .input-box button {
+            width: 15%;
+            padding: 10px;
+            background-color: #4e805e;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="contact">John Doe</div>
+            <div class="contact active">Jane Smith</div>
+            <div class="contact">Alice Johnson</div>
+        </div>
+        <div class="chat-area">
+            <div class="messages">
+                <div class="message sent">Hello! How are you?</div>
+                <div class="message received">I'm good, thanks! How about you?</div>
+            </div>
+            <div class="input-box">
+                <input type="text" placeholder="Type your message...">
+                <button>Send</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
