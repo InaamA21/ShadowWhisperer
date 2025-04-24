@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.min.js"></script> <!-- Include CryptoJS -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -40,13 +41,6 @@
         input::placeholder {
             color: #888;
         }
-        .or-text {
-            display: block;
-            margin: 10px 0;
-            font-size: 16px;
-            font-weight: bold;
-            color: #aaa;
-        }
         button {
             width: 100%;
             padding: 10px;
@@ -66,26 +60,51 @@
 </head>
 <body>
     <div class="container">
-        <h1>Register</h1>
-        <form action="nextpage.html" method="POST" onsubmit="return validateForm()">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="email" id="email" name="email" placeholder="E-Mail">
-            <span class="or-text">or</span>
-            <input type="number" id="phone" name="phone" placeholder="Phone Number">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="text" id="phone" placeholder="Phone Number">
             <button type="submit">Register</button>
         </form>
     </div>
+
     <script>
-        function validateForm() {
-            let email = document.getElementById("email").value;
-            let phone = document.getElementById("phone").value;
-            if (email.trim() === "" && phone.trim() === "") {
-                alert("Please enter either an email or a phone number.");
-                return false;
-            }
-            return true;
+    const registerForm = document.getElementById("registerForm");
+    registerForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+
+    if (!username || !password || !email || !phone) {
+        alert("All fields are required!");
+        return;
+    }
+
+    try {
+        const response = await fetch("http://localhost:3000/register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password, email, phone }),
+        });
+
+        if (response.ok) {
+        alert("Registration successful! 😊");
+        window.location.href = "blog.html"; 
+        } else {
+        const data = await response.json();
+        alert("Error: " + data.error);
         }
-    </script>
+    } catch (error) {
+        alert("Request failed: " + error.message); 
+    }
+    });
+    </script> 
 </body>
 </html>

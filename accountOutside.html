@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Account from other user</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #2f2f2f;
+      color: #e0e0e0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .profile-section {
+      display: flex;
+      justify-content: center;
+      background-color: #333;
+      padding: 20px;
+      border-bottom: 1px solid #444;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .profile-section img {
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      margin-right: 20px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .profile-info h2 {
+      margin: 0;
+      font-size: 20px;
+      color: #fff;
+    }
+
+    .profile-info p {
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    .feed {
+      overflow-y: auto;
+      flex-grow: 1;
+      padding: 20px;
+    }
+
+    .feed .section {
+      margin-bottom: 20px;
+      background-color: #444;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    }
+
+    .feed .section h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .feed .section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .feed .section ul li {
+      background-color: #555;
+      margin-bottom: 10px;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .feed .section ul li h4 {
+      margin: 0;
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .feed .section ul li p {
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      background-color: #1c1c1c;
+      padding: 10px 0;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+      z-index: 10;
+      backdrop-filter: blur(8px);
+      border-top: 1px solid #2a2a2a;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer button {
+      background: #2a2a2a;
+      color: #b0ffb0;
+      border: 1px solid #3a3a3a;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-family: 'Segoe UI', sans-serif;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow:
+        inset -2px -2px 4px rgba(255, 255, 255, 0.05),
+        inset 2px 2px 8px rgba(0, 255, 100, 0.06),
+        4px 4px 12px rgba(0, 0, 0, 0.6);
+      transition: all 0.3s ease;
+    }
+
+    .footer button:hover {
+      background: #333;
+      color: #e8ffe8;
+      box-shadow:
+        0 0 12px rgba(0, 255, 120, 0.2),
+        0 0 20px rgba(0, 255, 100, 0.05),
+        inset 0 0 6px rgba(0, 255, 100, 0.15);
+      transform: translateY(-1px) scale(1.03);
+    }
+
+    .add-friend-btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .add-friend-btn:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Profile Section -->
+  <div class="profile-section">
+    <img src="profile.jpg" alt="Profile Picture" id="profilePic" />
+    <div class="profile-info">
+      <h2 id="username">John Doe</h2>
+      <p id="email">john.doe@example.com</p>
+      <button class="add-friend-btn" id="addFriendBtn">+ Add Friend</button>
+    </div>
+  </div>
+
+  <!-- Feed Section -->
+  <div class="feed">
+    <div class="section">
+      <h3>Blogs</h3>
+      <ul id="blogsList"></ul>
+    </div>
+
+
+  <!-- Unified Footer -->
+  <div class="footer">
+    <button onclick="window.location.href='search.html'">🔍 Search</button>
+    <button onclick="window.location.href='createBlog.html'">+ Create Blog</button>
+    <button onclick="window.location.href='chat.html'">💬 Chat</button>
+    <button onclick="window.location.href='blog.html'">📝 Blog</button>
+    <button onclick="window.location.href='account-settings.html'">⚙️ Settings</button>
+    <button onclick="window.location.href='secretpassword.html'"><img src="shadows.png" alt="shadows" style="width: 30px; height: auto;" /></button>
+  </div>
+
+</body>
+</html>

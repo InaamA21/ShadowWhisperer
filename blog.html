@@ -13,6 +13,9 @@
             color: #ddd;
             text-align: center;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         .header {
             background-color: #333;
@@ -37,6 +40,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             text-align: left;
             scroll-snap-align: start;
+            cursor: pointer;
         }
         .actions {
             display: flex;
@@ -65,51 +69,47 @@
             justify-content: space-between;
             align-items: center;
         }
+        /* Footer Styling */
         .footer {
             display: flex;
-            justify-content: space-around;
-            background-color: #222;
-            padding: 10px;
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: #1c1c1c;
+            padding: 10px 0;
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
             z-index: 10;
+            backdrop-filter: blur(8px);
+            border-top: 1px solid #2a2a2a;
+            gap: 10px;
+            flex-wrap: wrap;
         }
         .footer button {
-            background-color: #333;
-            color: white;
-            border: none;
-            padding: 15px;
-            font-size: 20px;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
+            background: #2a2a2a;
+            color: #b0ffb0;
+            border: 1px solid #3a3a3a;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-family: 'Segoe UI', sans-serif;
+            border-radius: 12px;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            box-shadow:
+                inset -2px -2px 4px rgba(255, 255, 255, 0.05),
+                inset 2px 2px 8px rgba(0, 255, 100, 0.06),
+                4px 4px 12px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s ease;
         }
         .footer button:hover {
-            background-color: #555;
-        }
-        .footer .center button {
-            background-color: #ff6347;
-        }
-        .footer .left button {
-            background-color: #008CBA;
-        }
-        .footer .right button {
-            background-color: #4CAF50;
-        }
-        .left, .right {
-            position: fixed;
-            bottom: 20px;
-        }
-        .left {
-            left: 20px;
-        }
-        .right {
-            right: 20px;
+            background: #333;
+            color: #e8ffe8;
+            box-shadow:
+                0 0 12px rgba(0, 255, 120, 0.2),
+                0 0 20px rgba(0, 255, 100, 0.05),
+                inset 0 0 6px rgba(0, 255, 100, 0.15);
+            transform: translateY(-1px) scale(1.03);
         }
     </style>
 </head>
@@ -118,111 +118,209 @@
     <div class="header">All Released Blogs</div>
 
     <div class="blog-container">
-        <div class="blog-post" id="blog1">
-            <h2>First Blog Post</h2>
-            <p>This is a short preview of the first blog post...</p>
-            <div class="actions">
-                <button onclick="likePost(this)">👍 Like (<span>0</span>)</button>
-                <button onclick="showCommentSection('comments1')">💬 Comment</button>
-                <button onclick="sharePost()">🔗 Share</button>
-                <button onclick="repostPost()">🔄 Repost</button>
-            </div>
-            <div id="comments1" class="comment-section" style="display:none;">
-                <input type="text" id="commentInput1" placeholder="Write a comment..." onkeydown="addComment(event, 'commentsList1')">
-                <div id="commentsList1"></div>
-            </div>
-        </div>
-
-        <div class="blog-post" id="blog2">
-            <h2>Second Blog Post</h2>
-            <p>Another interesting blog post summary...</p>
-            <div class="actions">
-                <button onclick="likePost(this)">👍 Like (<span>0</span>)</button>
-                <button onclick="showCommentSection('comments2')">💬 Comment</button>
-                <button onclick="sharePost()">🔗 Share</button>
-                <button onclick="repostPost()">🔄 Repost</button>
-            </div>
-            <div id="comments2" class="comment-section" style="display:none;">
-                <input type="text" id="commentInput2" placeholder="Write a comment..." onkeydown="addComment(event, 'commentsList2')">
-                <div id="commentsList2"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer">
-        <button onclick="window.location.href='create_blog.html'">+</button>
-    </div>
-
-    <div class="left">
-        <button onclick="window.location.href='search.html'">🔍</button>
-    </div>
-
-    <div class="right">
-        <button onclick="window.location.href='chat.html'">💬</button>
-        <button onclick="window.location.href='account.html'">👤</button>
+        <!-- Placeholder for blog posts -->
     </div>
 
     <script>
-        function likePost(button) {
-            let span = button.querySelector("span");
-            let count = parseInt(span.innerText);
-            span.innerText = count + 1;
+        // Load blogs from localStorage and display them
+        function loadBlogs() {
+            let blogs = JSON.parse(localStorage.getItem('blogs')) || [];
+            const blogContainer = document.querySelector('.blog-container');
+
+            if (blogs.length === 0) {
+                blogContainer.innerHTML = "<p>No blogs available. Please create one.</p>";
+                return;
+            }
+
+            // Loop through all saved blogs and display them
+            blogs.forEach((blog, index) => {
+                if (blog.visibility === "public" || (blog.visibility === "private" && blog.createdBy === 'user123')) {
+                    const blogPostDiv = document.createElement('div');
+                    blogPostDiv.classList.add('blog-post');
+                    blogPostDiv.dataset.blogIndex = index;
+                    blogPostDiv.innerHTML = `
+                        <h2><a href="profile.html" class="blog-title">${blog.title}</a></h2>
+                        <p>${blog.content.substring(0, 100)}...</p>
+                        <div class="actions">
+                            <button onclick="likePost(this, ${index})">👍 Like (<span>${blog.likes}</span>)</button>
+                            <button onclick="toggleCommentSection(${index})">💬 Comment</button>
+                            <button onclick="sharePost(${index})">🔗 Share</button>
+                            <button onclick="repostPost(${index})">🔄 Repost</button>
+                        </div>
+                        <div id="comments${index}" class="comment-section" style="display:none;">
+                            <input type="text" id="commentInput${index}" placeholder="Write a comment..." onkeydown="addComment(event, 'commentsList${index}', ${index})">
+                            <div id="commentsList${index}"></div>
+                        </div>
+                    `;
+                    blogContainer.appendChild(blogPostDiv);
+                    loadComments(index);
+                }
+            });
         }
 
-        function showCommentSection(id) {
-            let section = document.getElementById(id);
-            section.style.display = section.style.display === "none" ? "block" : "none";
+        // Function to toggle visibility of the comment section
+        function toggleCommentSection(index) {
+            const commentSection = document.getElementById(`comments${index}`);
+            commentSection.style.display = (commentSection.style.display === "none") ? "block" : "none";
         }
 
-        function addComment(event, commentListId) {
+        // Function to add a comment to a blog post
+        function addComment(event, commentListId, blogIndex, parentReplyIndex = null) {
             if (event.key === "Enter" && event.target.value.trim() !== "") {
                 let commentList = document.getElementById(commentListId);
                 let commentText = event.target.value.trim();
-                
+
                 let commentDiv = document.createElement("div");
                 commentDiv.classList.add("comment");
-                commentDiv.innerHTML = `<span>${commentText}</span> <button onclick="likeComment(this)">👍 (0)</button>`;
-                
+                commentDiv.dataset.commentIndex = commentList.children.length;
+                commentDiv.innerHTML = `
+                    <span>${commentText}</span> 
+                    <button onclick="likeComment(this)">👍 (0)</button> 
+                    <button class="reply-button" onclick="replyToComment(${blogIndex}, ${commentList.children.length}, ${parentReplyIndex})">Reply</button>
+                `;
+
                 commentList.appendChild(commentDiv);
+
+                let blogs = JSON.parse(localStorage.getItem('blogs')) || [];
+                let commentData = { text: commentText, replies: [], likedBy: [] };
+
+                if (parentReplyIndex === null) {
+                    blogs[blogIndex].comments.push(commentData);
+                } else {
+                    blogs[blogIndex].comments[parentReplyIndex].replies.push(commentData);
+                }
+                localStorage.setItem('blogs', JSON.stringify(blogs));
+
                 event.target.value = "";
             }
         }
 
+        // Function to like a comment
         function likeComment(button) {
+            const currentUser = 'user123';  // Example: This should be dynamically set based on the logged-in user
             let count = button.innerText.match(/\d+/)[0];
-            button.innerHTML = `👍 (${parseInt(count) + 1})`;
+
+            let blogs = JSON.parse(localStorage.getItem('blogs')) || [];
+
+            // Find which blog and comment this is for
+            let blogIndex = button.closest('.blog-post').dataset.blogIndex;
+            let commentIndex = button.closest('.comment').dataset.commentIndex;
+
+            let comment = blogs[blogIndex].comments[commentIndex];
+
+            // Check if the user has already liked this comment
+            if (!comment.likedBy.includes(currentUser)) {
+                // Add the user to the likedBy list
+                comment.likedBy.push(currentUser);
+                button.innerHTML = `👍 (${parseInt(count) + 1})`;
+                localStorage.setItem('blogs', JSON.stringify(blogs));
+            } else {
+                alert("You have already liked this comment.");
+            }
         }
 
-        function sharePost() {
-            alert("Share this post with your contacts!");
+        // Function to reply to a comment or reply
+        function replyToComment(blogIndex, commentIndex, parentReplyIndex) {
+            let replyText = prompt("Write your reply:");
+            if (replyText) {
+                let blogs = JSON.parse(localStorage.getItem('blogs')) || [];
+                let comment = parentReplyIndex === null 
+                              ? blogs[blogIndex].comments[commentIndex] 
+                              : blogs[blogIndex].comments[commentIndex].replies[parentReplyIndex];
+
+                comment.replies.push({ text: replyText, replies: [], likedBy: [] });
+
+                localStorage.setItem('blogs', JSON.stringify(blogs));
+                loadBlogs(); // Re-load blogs to refresh the comment section
+            }
         }
 
-        function repostPost() {
-            alert("You have reposted this blog!");
+        // Function to load comments for each blog post
+        function loadComments(blogIndex) {
+            let blogs = JSON.parse(localStorage.getItem('blogs')) || [];
+            let commentsList = blogs[blogIndex]?.comments || [];
+            let commentListElement = document.getElementById(`commentsList${blogIndex}`);
+
+            commentsList.forEach((comment, commentIndex) => {
+                let commentDiv = document.createElement("div");
+                commentDiv.classList.add("comment");
+                commentDiv.dataset.commentIndex = commentListElement.children.length;
+                commentDiv.innerHTML = `
+                    <span>${comment.text}</span> 
+                    <button onclick="likeComment(this)">👍 (0)</button> 
+                    <button class="reply-button" onclick="replyToComment(${blogIndex}, ${commentIndex}, null)">Reply</button>
+                `;
+                commentListElement.appendChild(commentDiv);
+
+                // Recursively load replies for this comment
+                loadReplies(comment.replies, commentDiv, blogIndex, commentIndex);
+            });
         }
 
-        let container = document.querySelector(".blog-container");
-        let isDown = false;
-        let startX;
-        let scrollLeft;
+        // Function to load replies for each comment recursively
+        function loadReplies(replies, commentDiv, blogIndex, commentIndex) {
+            replies.forEach((reply, replyIndex) => {
+                let replyDiv = document.createElement("div");
+                replyDiv.classList.add("comment", "reply-container");
+                replyDiv.innerHTML = `
+                    <span>Reply: ${reply.text}</span> 
+                    <button onclick="likeComment(this)">👍 (0)</button> 
+                    <button class="reply-button" onclick="replyToComment(${blogIndex}, ${commentIndex}, ${replyIndex})">Reply</button>
+                `;
+                commentDiv.appendChild(replyDiv);
 
-        container.addEventListener("mousedown", (e) => {
-            isDown = true;
-            container.classList.add("active");
-            startX = e.pageX - container.offsetLeft;
-            scrollLeft = container.scrollLeft;
-        });
+                // Recursively load replies to this reply
+                loadReplies(reply.replies, replyDiv, blogIndex, commentIndex);
+            });
+        }
 
-        container.addEventListener("mouseleave", () => isDown = false);
-        container.addEventListener("mouseup", () => isDown = false);
-        container.addEventListener("mousemove", (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - container.offsetLeft;
-            const walk = (x - startX) * 2;
-            container.scrollLeft = scrollLeft - walk;
-        });
+        function sharePost(blogIndex) {
+            let selectedFriends = prompt("Enter friend usernames to share with (comma separated):");
+
+            if (selectedFriends) {
+                selectedFriends = selectedFriends.split(',').map(name => name.trim());
+                let blogs = JSON.parse(localStorage.getItem('blogs')) || [];
+
+            if (!blogs[blogIndex].sharedWith) {
+                blogs[blogIndex].sharedWith = [];
+            }
+
+            blogs[blogIndex].sharedWith.push(...selectedFriends);
+
+            alert(`Blog shared with: ${selectedFriends.join(', ')}`);
+            localStorage.setItem('blogs', JSON.stringify(blogs));
+            }
+        }
+
+        function repostPost(blogIndex) {
+        let blogs = JSON.parse(localStorage.getItem('blogs')) || [];
+        let originalPost = blogs[blogIndex];
+
+        let repost = {
+            ...originalPost,
+            repostedBy: 'user123',  // Replace with dynamic username if available
+            title: `[Repost] ${originalPost.title}`,
+            repostedAt: new Date().toISOString()
+        };
+
+        blogs.unshift(repost);  // Add to the top of the blog feed
+        localStorage.setItem('blogs', JSON.stringify(blogs));
+        alert("Blog reposted successfully!");
+        loadBlogs(); // Refresh the page to show the new repost
+        }
+
+
+
+        // Load blogs on page load
+        window.onload = loadBlogs;
     </script>
 
+    <div class="footer">
+        <button onclick="window.location.href='search.html'">🔍 Search</button>
+        <button onclick="window.location.href='createBlog.html'">+ Create Blog</button>
+        <button onclick="window.location.href='chat.html'">💬 Chat</button>
+        <button onclick="window.location.href='account.html'">👤 Account</button>
+    </div>
+
 </body>
-</html>
+</html> 

@@ -1,43 +1,54 @@
-const express = require('express');
-const sqlite3 = require('sqlite3').verbose();
-const bcrypt = require('bcrypt');
-const cors = require('cors');
+const express = require("express");
+const bodyParser = require("body-parser");
+const { Pool } = require("pg");
+const bcrypt = require("bcryptjs");
+const cors = require("cors");
 
 const app = express();
-app.use(express.json());
-app.use(cors());
 
-const db = new sqlite3.Database('./users.db', (err) => {
-    if (err) console.error(err.message);
-    else console.log('Connected to SQLite database');
+// CORS configuration to allow localhost:5500 to make requests
+const corsOptions = {
+  origin: "http://localhost:5500", // Allow requests from localhost:5500
+  methods: "GET, POST, PUT, DELETE, OPTIONS", // Allow GET, POST, PUT, DELETE, and OPTIONS methods
+  allowedHeaders: "Content-Type, Authorization", // Allow these headers
+  credentials: true, // Allow credentials (cookies, authorization headers)
+};
+
+// Use CORS middleware with specified options
+app.use(cors(corsOptions));
+
+// Parse JSON bodies
+app.use(bodyParser.json());
+
+// PostgreSQL pool configuration
+const pool = new Pool({
+  user: "Shadow_owner",
+  database: "ShadowWhisper",
+  password: "ShadowZ",
+  port: 5432,
 });
 
-db.run(`CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE,
-    password TEXT
-)`);
+// Register User API
+app.post("/register", async (req, res) => {
+  try {
+    const { username, password, email, phone } = req.body;
+    const password_hash = await bcrypt.hash(password, 10);
 
-app.post('/register', (req, res) => {
-    const { username, password } = req.body;
-    bcrypt.hash(password, 10, (err, hash) => {
-        if (err) return res.status(500).send('Server error');
-        db.run(`INSERT INTO users (username, password) VALUES (?, ?)`, [username, hash], (err) => {
-            if (err) return res.status(400).send('Username taken');
-            res.send('User registered');
-        });
-    });
+    const result = await pool.query(
+      "INSERT INTO users (username, password_hash, email, phone) VALUES ($1, $2, $3, $4) RETURNING *",
+      [username, password_hash, email, phone]
+    );
+
+    res.status(201).json(result.rows[0]); // Return the created user
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-    db.get(`SELECT * FROM users WHERE username = ?`, [username], (err, user) => {
-        if (err || !user) return res.status(400).send('User not found');
-        bcrypt.compare(password, user.password, (err, result) => {
-            if (result) res.send('Login successful');
-            else res.status(400).send('Incorrect password');
-        });
-    });
-});
+// Handle OPTIONS requests (Preflight request)
+app.options('*', cors(corsOptions));
 
-app.listen(3000, () => console.log('Server running on port 3000'));
+// Start server
+app.listen(3000, () => {
+  console.log("Server is running on port 3000");
+});

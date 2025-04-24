@@ -97,13 +97,59 @@
             background-color: #666;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
+
+        /* Footer Styling */
+        .footer {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: #1c1c1c;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            backdrop-filter: blur(8px);
+            border-top: 1px solid #2a2a2a;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .footer button {
+            background: #2a2a2a;
+            color: #b0ffb0;
+            border: 1px solid #3a3a3a;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-family: 'Segoe UI', sans-serif;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow:
+                inset -2px -2px 4px rgba(255, 255, 255, 0.05),
+                inset 2px 2px 8px rgba(0, 255, 100, 0.06),
+                4px 4px 12px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s ease;
+        }
+
+        .footer button:hover {
+            background: #333;
+            color: #e8ffe8;
+            box-shadow:
+                0 0 12px rgba(0, 255, 120, 0.2),
+                0 0 20px rgba(0, 255, 100, 0.05),
+                inset 0 0 6px rgba(0, 255, 100, 0.15);
+            transform: translateY(-1px) scale(1.03);
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
         <h1>Create Your Blog</h1>
-        <form id="createBlogForm" action="#" method="POST">
+        <!-- Updated Form -->
+        <form id="createBlogForm" action="#" method="POST" onsubmit="saveBlog(); return false;">
             <div class="input-field">
                 <label for="title">Blog Title</label>
                 <input type="text" id="title" name="title" required>
@@ -114,6 +160,15 @@
                 <textarea id="content" name="content" placeholder="Write your blog content here..." required></textarea>
             </div>
 
+            <div class="input-field">
+                <label for="visibility">Visibility</label>
+                <select id="visibility" name="visibility" required>
+                    <option value="select">Select</option>
+                    <option value="private">Private</option>
+                    <option value="public">Public</option>
+                </select>
+            </div>
+
             <div class="file-upload">
                 <label for="fileUpload">Upload Files</label>
                 <input type="file" id="fileUpload" name="fileUpload[]" accept="image/*,video/*,.pdf,.doc,.docx,.txt">
@@ -122,6 +177,49 @@
 
             <button type="submit" class="submit-btn">Publish Blog</button>
         </form>
+    </div>
+
+    <script>
+        // Function to save the blog
+        function saveBlog() {
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            const visibility = document.getElementById('visibility').value;
+
+            // Create a blog object
+            const blog = {
+                title: title,
+                content: content,
+                visibility: visibility,
+                likes: 0,
+                comments: [],
+                createdBy: 'user123', // Example user ID
+                timestamp: new Date().toISOString(),
+            };
+
+            // Retrieve existing blogs from localStorage
+            let blogs = JSON.parse(localStorage.getItem('blogs')) || [];
+
+            // Add the new blog to the array
+            blogs.push(blog);
+
+            // Save the updated blogs array back to localStorage
+            localStorage.setItem('blogs', JSON.stringify(blogs));
+
+            // Notify user
+            alert("Blog created successfully!");
+
+            // Redirect to blog overview page
+            window.location.href = "blog.html"; 
+        }
+    </script>
+
+    <!-- Updated Footer -->
+    <div class="footer">
+        <button onclick="window.location.href='search.html'">🔍 Search</button>
+        <button onclick="window.location.href='chat.html'">💬 Chat</button>
+        <button onclick="window.location.href='blog.html'">📝 Blog</button>
+        <button onclick="window.location.href='account.html'">👤 Account</button>
     </div>
 
 </body>

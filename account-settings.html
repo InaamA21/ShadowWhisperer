@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Account Settings</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #ddd;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .header {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .settings-container {
+      padding: 20px;
+      flex: 1;
+    }
+
+    .setting-item {
+      background-color: #222;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .setting-item input {
+      width: 100%;
+      padding: 10px;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .setting-item button {
+      background-color: #4e805e;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .setting-item button:hover {
+      background-color: #3a6c49;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      background-color: #1c1c1c;
+      padding: 10px 0;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+      z-index: 10;
+      backdrop-filter: blur(8px);
+      border-top: 1px solid #2a2a2a;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer button {
+      background: #2a2a2a;
+      color: #b0ffb0;
+      border: 1px solid #3a3a3a;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-family: 'Segoe UI', sans-serif;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow:
+        inset -2px -2px 4px rgba(255, 255, 255, 0.05),
+        inset 2px 2px 8px rgba(0, 255, 100, 0.06),
+        4px 4px 12px rgba(0, 0, 0, 0.6);
+      transition: all 0.3s ease;
+    }
+
+    .footer button:hover {
+      background: #333;
+      color: #e8ffe8;
+      box-shadow:
+        0 0 12px rgba(0, 255, 120, 0.2),
+        0 0 20px rgba(0, 255, 100, 0.05),
+        inset 0 0 6px rgba(0, 255, 100, 0.15);
+      transform: translateY(-1px) scale(1.03);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">Account Settings</div>
+
+  <div class="settings-container">
+    <div class="setting-item">
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Enter your username">
+    </div>
+    <div class="setting-item">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Enter your email">
+    </div>
+    <div class="setting-item">
+      <button id="save-changes-btn">Save Changes</button>
+    </div>
+  </div>
+
+  <!-- Updated Footer -->
+  <div class="footer">
+    <button onclick="window.location.href='search.html'">🔍 Search</button>
+    <button onclick="window.location.href='createBlog.html'">+ Create Blog</button>
+    <button onclick="window.location.href='chat.html'">💬 Chat</button>
+    <button onclick="window.location.href='blog.html'">📝 Blog</button>
+    <button onclick="window.location.href='account.html'">👤 Account</button>
+  </div>
+
+  <script src="account-settings.js"></script>
+
+</body>
+</html>

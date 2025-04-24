@@ -1,111 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Application</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #121212;
-            color: #ddd;
-        }
-        .container {
-            display: flex;
-            height: 100vh;
-        }
-        .sidebar {
-            width: 250px;
-            background-color: #090909;
-            color: white;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.4);
-        }
-        .contact {
-            padding: 15px;
-            cursor: pointer;
-            border-bottom: 1px solid #444;
-            transition: background-color 0.3s;
-        }
-        .contact:hover {
-            background-color: #444;
-        }
-        .contact.active {
-            background-color: #4e805e;
-        }
-        .chat-area {
-            flex-grow: 1;
-            background-color: #222;
-            padding: 20px;
-            box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.5);
-        }
-        .messages {
-            max-height: 75vh;
-            overflow-y: auto;
-            margin-bottom: 20px;
-        }
-        .message {
-            padding: 10px;
-            margin-bottom: 10px;
-            background-color: #333;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            max-width: 80%;
-        }
-        .message.sent {
-            background-color: #4e805e;
-            margin-left: auto;
-        }
-        .message.received {
-            background-color: #555;
-        }
-        .input-box {
-            display: flex;
-            justify-content: space-between;
-        }
-        .input-box input {
-            width: 80%;
-            padding: 10px;
-            border-radius: 5px;
-            background-color: #333;
-            color: white;
-            border: none;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-        .input-box button {
-            width: 15%;
-            padding: 10px;
-            background-color: #4e805e;
-            border: none;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat Application</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: #ddd;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      position: relative;
+    }
+    .container {
+      display: flex;
+      flex-grow: 1;
+    }
+    .sidebar {
+      width: 250px;
+      background-color: #090909;
+      color: white;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 4px 0 10px rgba(0, 0, 0, 0.4);
+    }
+    .contact {
+      padding: 15px;
+      cursor: pointer;
+      border-bottom: 1px solid #444;
+      transition: background-color 0.3s;
+    }
+    .contact:hover {
+      background-color: #444;
+    }
+    .contact.active {
+      background-color: #4e805e;
+    }
+    .chat-area {
+      flex-grow: 1;
+      background-color: #222;
+      padding: 20px;
+      box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+    .messages {
+      max-height: 75vh;
+      overflow-y: auto;
+      margin-bottom: 20px;
+    }
+    .message {
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: #333;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      max-width: 80%;
+    }
+    .message.sent {
+      background-color: #4e805e;
+      margin-left: auto;
+    }
+    .message.received {
+      background-color: #555;
+    }
+    .input-box {
+      display: flex;
+      justify-content: space-between;
+    }
+    .input-box input {
+      width: 80%;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #333;
+      color: white;
+      border: none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+    .input-box button {
+      width: 15%;
+      padding: 10px;
+      background-color: #4e805e;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .footer {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      background-color: #1c1c1c;
+      padding: 10px 0;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+      z-index: 10;
+      backdrop-filter: blur(8px);
+      border-top: 1px solid #2a2a2a;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .footer button {
+      background: #2a2a2a;
+      color: #b0ffb0;
+      border: 1px solid #3a3a3a;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-family: 'Segoe UI', sans-serif;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow:
+        inset -2px -2px 4px rgba(255, 255, 255, 0.05),
+        inset 2px 2px 8px rgba(0, 255, 100, 0.06),
+        4px 4px 12px rgba(0, 0, 0, 0.6);
+      transition: all 0.3s ease;
+    }
+    .footer button:hover {
+      background: #333;
+      color: #e8ffe8;
+      box-shadow:
+        0 0 12px rgba(0, 255, 120, 0.2),
+        0 0 20px rgba(0, 255, 100, 0.05),
+        inset 0 0 6px rgba(0, 255, 100, 0.15);
+      transform: translateY(-1px) scale(1.03);
+    }
+    .screenshot-block {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: black;
+      opacity: 0.9;
+      z-index: 9999;
+      display: none;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="sidebar">
-            <div class="contact">John Doe</div>
-            <div class="contact active">Jane Smith</div>
-            <div class="contact">Alice Johnson</div>
-        </div>
-        <div class="chat-area">
-            <div class="messages">
-                <div class="message sent">Hello! How are you?</div>
-                <div class="message received">I'm good, thanks! How about you?</div>
-            </div>
-            <div class="input-box">
-                <input type="text" placeholder="Type your message...">
-                <button>Send</button>
-            </div>
-        </div>
+  <div class="container">
+    <div class="sidebar" id="sidebar"></div>
+    <div class="chat-area">
+      <div class="messages" id="messages-container"></div>
+      <div class="input-box">
+        <input type="text" id="message-input" placeholder="Type your message...">
+        <button onclick="sendMessage()">Send</button>
+      </div>
     </div>
+  </div>
+
+  <div class="footer">
+    <button onclick="window.location.href='search.html'">🔍 Search</button>
+    <button onclick="window.location.href='createBlog.html'">+ Create Blog</button>
+    <button onclick="window.location.href='blog.html'">📝 Blog</button>
+    <button onclick="window.location.href='account.html'">👤 Account</button>
+  </div>
+
+  <div id="screenshot-block" class="screenshot-block"></div>
+
+  <script>
+    let currentUser = null;
+    const friends = JSON.parse(localStorage.getItem("friends")) || [];
+    const messages = {};
+
+    // Setup message storage
+    friends.forEach(friend => {
+      messages[friend] = [];
+    });
+
+    // Build sidebar
+    const sidebar = document.getElementById("sidebar");
+    friends.forEach((friend, index) => {
+      const contact = document.createElement("div");
+      contact.classList.add("contact");
+      if (index === 0) {
+        contact.classList.add("active");
+        currentUser = friend;
+      }
+      contact.textContent = friend;
+      contact.id = friend;
+      contact.onclick = () => switchChat(friend);
+      sidebar.appendChild(contact);
+    });
+
+    function switchChat(userName) {
+      const allContacts = document.querySelectorAll('.contact');
+      allContacts.forEach(contact => contact.classList.remove('active'));
+
+      document.getElementById(userName).classList.add('active');
+      currentUser = userName;
+      updateChatArea();
+    }
+
+    function updateChatArea() {
+      const messagesContainer = document.getElementById('messages-container');
+      messagesContainer.innerHTML = '';
+
+      const userMessages = messages[currentUser] || [];
+      userMessages.forEach(message => {
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('message', message.type);
+        messageElement.textContent = message.text;
+        messagesContainer.appendChild(messageElement);
+      });
+    }
+
+    function sendMessage() {
+      const messageInput = document.getElementById('message-input');
+      const messageText = messageInput.value.trim();
+      
+      if (messageText && currentUser) {
+        const sentMessage = { text: messageText, type: "sent" };
+        messages[currentUser].push(sentMessage);
+
+        const messagesContainer = document.getElementById('messages-container');
+        const sentMessageElement = document.createElement('div');
+        sentMessageElement.classList.add('message', 'sent');
+        sentMessageElement.textContent = messageText;
+        messagesContainer.appendChild(sentMessageElement);
+        
+        messageInput.value = '';
+
+        setTimeout(() => {
+          sentMessageElement.style.display = 'none';
+        }, 2000);
+
+        setTimeout(() => {
+          const receivedMessage = { text: `Thanks for your message!`, type: "received" };
+          messages[currentUser].push(receivedMessage);
+
+          const receivedMessageElement = document.createElement('div');
+          receivedMessageElement.classList.add('message', 'received');
+          receivedMessageElement.textContent = receivedMessage.text;
+          messagesContainer.appendChild(receivedMessageElement);
+        }, 1500);
+      }
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (
+        e.key === 'PrintScreen' ||
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+        (e.key === 'S' && e.shiftKey && (e.metaKey || e.ctrlKey))
+      ) {
+        e.preventDefault();
+        activateScreenshotBlock();
+      }
+    });
+
+    function activateScreenshotBlock() {
+      const blockElement = document.getElementById('screenshot-block');
+      blockElement.style.display = 'block';
+      setTimeout(() => {
+        blockElement.style.display = 'none';
+      }, 2000);
+    }
+
+    if (friends.length > 0) updateChatArea();
+  </script>
 </body>
 </html>
