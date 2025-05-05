@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shadow – Gossip & Stories</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #121212;
+      color: #eee;
+      overflow-x: hidden;
+    }
+    header, footer {
+      background-color: #1a1a1a;
+      color: #fff;
+      text-align: center;
+      padding: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      letter-spacing: 3px;
+      color: #b9a3e2;
+      text-transform: uppercase;
+    }
+    header p {
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      color: #ff8f00;
+    }
+    nav {
+      margin-top: 1rem;
+    }
+    nav a {
+      margin: 0 1rem;
+      color: #eee;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #5900ff;
+    }
+    main {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+      min-height: 100vh;
+    }
+    .section-title {
+      font-size: 2rem;
+      text-align: center;
+      color: #b9a3e2;
+      margin-bottom: 1rem;
+    }
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .article {
+      background: #1e1e1e;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease;
+    }
+    .article:hover {
+      transform: scale(1.05);
+    }
+    .article img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .article-content {
+      padding: 1rem;
+    }
+    .article-content h3 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      color: #dd9333;
+    }
+    .article-content p {
+      font-size: 0.9rem;
+      line-height: 1.4;
+      color: #ddd;
+    }
+    .themes {
+      margin: 2rem 0 1rem;
+    }
+    .themes select {
+      padding: 0.7rem;
+      background: #2a2a2a;
+      color: #eee;
+      border: 1px solid #444;
+      border-radius: 6px;
+      width: 100%;
+      max-width: 300px;
+      display: block;
+      margin: auto;
+    }
+    .newsletter {
+      background: #1a1a1a;
+      padding: 2rem;
+      margin-top: 3rem;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .newsletter input[type="email"] {
+      padding: 0.7rem;
+      width: 70%;
+      max-width: 400px;
+      border: 1px solid #444;
+      border-radius: 5px;
+      background: #2a2a2a;
+      color: #eee;
+    }
+    .newsletter button {
+      padding: 0.7rem 1.2rem;
+      background: #5900ff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      margin-left: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .newsletter button:hover {
+      background: #5900ff;
+    }
+    footer {
+      margin-top: 3rem;
+    }
+    footer a {
+      color: #ff8f00;
+      text-decoration: none;
+    }
+    footer p {
+      margin-top: 1rem;
+    }
+    footer p a {
+      color: #5900ff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Shadow Gossip</h1>
+    <p>Wo das Licht endet, beginnt der Klatsch</p>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="themen.html">Themen</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2 class="section-title">🔥 Neueste Beiträge</h2>
+      <div class="article-grid" id="articleGrid">
+        <div class="article" data-theme="stars">
+          <img src="star.jpg" alt="Star Gossip" />
+          <div class="article-content">
+            <h3>Drama bei den Stardays 2025</h3>
+            <p>Hinter den Kulissen brodelt es: Wer fliegt raus, wer kommt ganz groß raus?</p>
+          </div>
+        </div>
+        <div class="article" data-theme="beziehungen">
+          <img src="liebe.jpg" alt="Liebesdrama" />
+          <div class="article-content">
+            <h3>Geheime Romanze aufgedeckt</h3>
+            <p>Zwei bekannte Gesichter wurden vertraut gesichtet. Was läuft da?</p>
+          </div>
+        </div>
+        <div class="article" data-theme="skandale">
+          <img src="scandal.jpg" alt="Skandal" />
+          <div class="article-content">
+            <h3>Skandal um Influencerin X</h3>
+            <p>Ein geleaktes Video sorgt für Aufruhr – wir haben alle Infos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="themes">
+      <h2 class="section-title">📂 Themenübersicht</h2>
+      <select id="themeFilter">
+        <option value="all">Alle Themen</option>
+        <option value="stars">Stars</option>
+        <option value="skandale">Skandale</option>
+        <option value="beziehungen">Beziehungen</option>
+        <option value="karriere">Karriere</option>
+        <option value="entertainment">Entertainment</option>
+      </select>
+    </section>
+
+    <section class="newsletter">
+      <h2>📰 Newsletter abonnieren</h2>
+      <p>Verpasse keine Skandale mehr! Abonniere unseren exklusiven Newsletter.</p>
+      <form onsubmit="event.preventDefault(); alert('Danke für dein Abo!');">
+        <input type="email" required placeholder="Deine E-Mail" />
+        <button type="submit">Abonnieren</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Shadow Gossip.</p>
+    <a href="kontakt.html">Kontakt</a>
+  </footer>
+
+  <script>
+    document.getElementById('themeFilter').addEventListener('change', function() {
+      const value = this.value;
+      const articles = document.querySelectorAll('.article');
+      articles.forEach(article => {
+        article.style.display = value === "all" || article.dataset.theme === value ? "block" : "none";
+      });
+    });
+  </script>
+</body>
+</html>

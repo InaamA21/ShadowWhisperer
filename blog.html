@@ -1,326 +1,274 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Overview</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #121212;
-            color: #ddd;
-            text-align: center;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        .header {
-            background-color: #333;
-            color: white;
-            padding: 15px;
-            font-size: 24px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        .blog-container {
-            max-width: 800px;
-            margin: 30px auto;
-            overflow: hidden;
-            display: flex;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-        }
-        .blog-post {
-            background: #222;
-            padding: 20px;
-            min-width: 95%;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            text-align: left;
-            scroll-snap-align: start;
-            cursor: pointer;
-        }
-        .actions {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-        }
-        .actions button {
-            background-color: transparent;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: #fff;
-        }
-        .actions button:hover {
-            color: #ff6347;
-        }
-        .comment-section {
-            margin-top: 10px;
-        }
-        .comment {
-            background: #333;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        /* Footer Styling */
-        .footer {
-            display: flex;
-            justify-content: space-evenly;
-            align-items: center;
-            background-color: #1c1c1c;
-            padding: 10px 0;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
-            z-index: 10;
-            backdrop-filter: blur(8px);
-            border-top: 1px solid #2a2a2a;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .footer button {
-            background: #2a2a2a;
-            color: #b0ffb0;
-            border: 1px solid #3a3a3a;
-            padding: 12px 20px;
-            font-size: 16px;
-            font-family: 'Segoe UI', sans-serif;
-            border-radius: 12px;
-            cursor: pointer;
-            box-shadow:
-                inset -2px -2px 4px rgba(255, 255, 255, 0.05),
-                inset 2px 2px 8px rgba(0, 255, 100, 0.06),
-                4px 4px 12px rgba(0, 0, 0, 0.6);
-            transition: all 0.3s ease;
-        }
-        .footer button:hover {
-            background: #333;
-            color: #e8ffe8;
-            box-shadow:
-                0 0 12px rgba(0, 255, 120, 0.2),
-                0 0 20px rgba(0, 255, 100, 0.05),
-                inset 0 0 6px rgba(0, 255, 100, 0.15);
-            transform: translateY(-1px) scale(1.03);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blogs</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #121212;
+        color: #ddd;
+        text-align: center;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    .header {
+        background-color: #333;
+        color: white;
+        padding: 15px;
+        font-size: 24px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .blog-container {
+        max-width: 800px;
+        margin: 30px auto;
+        overflow: hidden;
+        overflow-x: auto;
+        display: flex;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+    }
+    .blog-post {
+        background: #222;
+        padding: 20px;
+        min-width: 95%;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        text-align: left;
+        scroll-snap-align: start;
+        cursor: pointer;
+    }
+    .actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+    .actions button {
+        background-color: transparent;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: #fff;
+    }
+    .actions button:hover {
+        color: #ff6347;
+    }
+    .comment-section {
+        margin-top: 10px;
+    }
+    .comment {
+        background: #333;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .comment-box {
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .comment-input input {
+        padding: 8px;
+        background: #1e1e1e;
+        border: 1px solid #444;
+        color: #ddd;
+        border-radius: 6px;
+        width: 70%;
+    }
+    .comment-input button {
+        padding: 8px 12px;
+        margin-left: 8px;
+        background-color: #2a2a2a;
+        color: #a0ffa0;
+        border: 1px solid #3a3a3a;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+    .footer {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        background-color: #1c1c1c;
+        padding: 10px 0;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+        z-index: 10;
+        backdrop-filter: blur(8px);
+        border-top: 1px solid #2a2a2a;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .footer button {
+        background: #2a2a2a;
+        color: #b0ffb0;
+        border: 1px solid #3a3a3a;
+        padding: 12px 20px;
+        font-size: 16px;
+        font-family: 'Segoe UI', sans-serif;
+        border-radius: 12px;
+        cursor: pointer;
+        box-shadow:
+            inset -2px -2px 4px rgba(255, 255, 255, 0.05),
+            inset 2px 2px 8px rgba(0, 255, 100, 0.06),
+            4px 4px 12px rgba(0, 0, 0, 0.6);
+        transition: all 0.3s ease;
+    }
+    .footer button:hover {
+        background: #333;
+        color: #e8ffe8;
+        box-shadow:
+            0 0 12px rgba(0, 255, 120, 0.2),
+            0 0 20px rgba(0, 255, 100, 0.05),
+            inset 0 0 6px rgba(0, 255, 100, 0.15);
+        transform: translateY(-1px) scale(1.03);
+    }
+    .blog-image {
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
-
-    <div class="header">All Released Blogs</div>
-
-    <div class="blog-container">
-        <!-- Placeholder for blog posts -->
-    </div>
+    <h1>Blogs</h1>
+    <div id="loadingMessage">Loading blogs...</div>
+    <div id="blogsContainer"></div>
 
     <script>
-        // Load blogs from localStorage and display them
-        function loadBlogs() {
-            let blogs = JSON.parse(localStorage.getItem('blogs')) || [];
-            const blogContainer = document.querySelector('.blog-container');
+        const token = sessionStorage.getItem("authToken");
+        const userId = sessionStorage.getItem("userId");
 
-            if (blogs.length === 0) {
-                blogContainer.innerHTML = "<p>No blogs available. Please create one.</p>";
+        if (!token || !userId) {
+            window.location.href = "/login.html";
+        }
+
+        function createBlogElement(blog) {
+            const post = document.createElement("div");
+            post.className = "blog-post";
+
+            const imgUrl = blog.file ? `http://localhost:3000/${blog.file}` : "";
+
+            post.innerHTML = `
+                <div class="blog-title" onclick="goToProfile('${blog.user_id}')">${blog.title}</div>
+                ${imgUrl ? `<img src="${imgUrl}" class="blog-image" alt="Blog Image">` : ''}
+                <div class="blog-content">${blog.content}</div>
+                <div class="meta">Visibility: ${blog.visibility} | ${new Date(blog.timestamp).toLocaleString()}</div>
+                <div class="actions">
+                    <button onclick="likePost('${blog.id}', this)">❤️ <span>${blog.likes || 0}</span></button>
+                    <button onclick="toggleCommentBox(this)">💬 Comment</button>
+                </div>
+                <div class="comment-box">
+                    <div class="comment-input">
+                        <input type="text" placeholder="Add a comment..." />
+                        <button onclick="postComment('${blog.id}', this)">Send</button>
+                    </div>
+                    <div class="comment-list">
+                        ${Array.isArray(blog.comments) ? blog.comments.map(c => `<div>- ${c}</div>`).join('') : ''}
+                    </div>
+                </div>
+            `;
+
+            return post;
+        }
+
+        function likePost(blogId, button) {
+            fetch(`http://localhost:3000/blogs/${blogId}/like`, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    const span = button.querySelector("span");
+                    span.textContent = parseInt(span.textContent) + 1;
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Failed to like the post.");
+            });
+        }
+
+        function toggleCommentBox(button) {
+            const box = button.closest('.blog-post').querySelector('.comment-box');
+            box.style.display = box.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function postComment(blogId, btn) {
+            const input = btn.parentElement.querySelector("input");
+            const comment = input.value.trim();
+            if (!comment) return; // Don't post empty comments
+
+            fetch(`http://localhost:3000/blogs/${blogId}/comment`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ comment })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    const list = btn.closest('.comment-box').querySelector('.comment-list');
+                    const div = document.createElement('div');
+                    div.textContent = `- ${comment}`;
+                    list.appendChild(div);
+                    input.value = ""; // Clear the input after posting
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Failed to post comment.");
+            });
+        }
+
+        fetch('http://localhost:3000/blogs-with-files', {
+            headers: { 'Authorization': `Bearer ${token}` }
+        })
+        .then(res => res.json())
+        .then(blogs => {
+            const container = document.getElementById("blogsContainer");
+            const loadingMessage = document.getElementById("loadingMessage");
+
+            container.innerHTML = "";
+            loadingMessage.style.display = "none"; // Hide loading message
+
+            if (!blogs.length) {
+                container.innerHTML = `<div class="meta">No blogs found.</div>`;
                 return;
             }
 
-            // Loop through all saved blogs and display them
-            blogs.forEach((blog, index) => {
-                if (blog.visibility === "public" || (blog.visibility === "private" && blog.createdBy === 'user123')) {
-                    const blogPostDiv = document.createElement('div');
-                    blogPostDiv.classList.add('blog-post');
-                    blogPostDiv.dataset.blogIndex = index;
-                    blogPostDiv.innerHTML = `
-                        <h2><a href="profile.html" class="blog-title">${blog.title}</a></h2>
-                        <p>${blog.content.substring(0, 100)}...</p>
-                        <div class="actions">
-                            <button onclick="likePost(this, ${index})">👍 Like (<span>${blog.likes}</span>)</button>
-                            <button onclick="toggleCommentSection(${index})">💬 Comment</button>
-                            <button onclick="sharePost(${index})">🔗 Share</button>
-                            <button onclick="repostPost(${index})">🔄 Repost</button>
-                        </div>
-                        <div id="comments${index}" class="comment-section" style="display:none;">
-                            <input type="text" id="commentInput${index}" placeholder="Write a comment..." onkeydown="addComment(event, 'commentsList${index}', ${index})">
-                            <div id="commentsList${index}"></div>
-                        </div>
-                    `;
-                    blogContainer.appendChild(blogPostDiv);
-                    loadComments(index);
-                }
+            blogs.forEach(blog => {
+                const blogElement = createBlogElement(blog);
+                container.appendChild(blogElement);
             });
-        }
-
-        // Function to toggle visibility of the comment section
-        function toggleCommentSection(index) {
-            const commentSection = document.getElementById(`comments${index}`);
-            commentSection.style.display = (commentSection.style.display === "none") ? "block" : "none";
-        }
-
-        // Function to add a comment to a blog post
-        function addComment(event, commentListId, blogIndex, parentReplyIndex = null) {
-            if (event.key === "Enter" && event.target.value.trim() !== "") {
-                let commentList = document.getElementById(commentListId);
-                let commentText = event.target.value.trim();
-
-                let commentDiv = document.createElement("div");
-                commentDiv.classList.add("comment");
-                commentDiv.dataset.commentIndex = commentList.children.length;
-                commentDiv.innerHTML = `
-                    <span>${commentText}</span> 
-                    <button onclick="likeComment(this)">👍 (0)</button> 
-                    <button class="reply-button" onclick="replyToComment(${blogIndex}, ${commentList.children.length}, ${parentReplyIndex})">Reply</button>
-                `;
-
-                commentList.appendChild(commentDiv);
-
-                let blogs = JSON.parse(localStorage.getItem('blogs')) || [];
-                let commentData = { text: commentText, replies: [], likedBy: [] };
-
-                if (parentReplyIndex === null) {
-                    blogs[blogIndex].comments.push(commentData);
-                } else {
-                    blogs[blogIndex].comments[parentReplyIndex].replies.push(commentData);
-                }
-                localStorage.setItem('blogs', JSON.stringify(blogs));
-
-                event.target.value = "";
-            }
-        }
-
-        // Function to like a comment
-        function likeComment(button) {
-            const currentUser = 'user123';  // Example: This should be dynamically set based on the logged-in user
-            let count = button.innerText.match(/\d+/)[0];
-
-            let blogs = JSON.parse(localStorage.getItem('blogs')) || [];
-
-            // Find which blog and comment this is for
-            let blogIndex = button.closest('.blog-post').dataset.blogIndex;
-            let commentIndex = button.closest('.comment').dataset.commentIndex;
-
-            let comment = blogs[blogIndex].comments[commentIndex];
-
-            // Check if the user has already liked this comment
-            if (!comment.likedBy.includes(currentUser)) {
-                // Add the user to the likedBy list
-                comment.likedBy.push(currentUser);
-                button.innerHTML = `👍 (${parseInt(count) + 1})`;
-                localStorage.setItem('blogs', JSON.stringify(blogs));
-            } else {
-                alert("You have already liked this comment.");
-            }
-        }
-
-        // Function to reply to a comment or reply
-        function replyToComment(blogIndex, commentIndex, parentReplyIndex) {
-            let replyText = prompt("Write your reply:");
-            if (replyText) {
-                let blogs = JSON.parse(localStorage.getItem('blogs')) || [];
-                let comment = parentReplyIndex === null 
-                              ? blogs[blogIndex].comments[commentIndex] 
-                              : blogs[blogIndex].comments[commentIndex].replies[parentReplyIndex];
-
-                comment.replies.push({ text: replyText, replies: [], likedBy: [] });
-
-                localStorage.setItem('blogs', JSON.stringify(blogs));
-                loadBlogs(); // Re-load blogs to refresh the comment section
-            }
-        }
-
-        // Function to load comments for each blog post
-        function loadComments(blogIndex) {
-            let blogs = JSON.parse(localStorage.getItem('blogs')) || [];
-            let commentsList = blogs[blogIndex]?.comments || [];
-            let commentListElement = document.getElementById(`commentsList${blogIndex}`);
-
-            commentsList.forEach((comment, commentIndex) => {
-                let commentDiv = document.createElement("div");
-                commentDiv.classList.add("comment");
-                commentDiv.dataset.commentIndex = commentListElement.children.length;
-                commentDiv.innerHTML = `
-                    <span>${comment.text}</span> 
-                    <button onclick="likeComment(this)">👍 (0)</button> 
-                    <button class="reply-button" onclick="replyToComment(${blogIndex}, ${commentIndex}, null)">Reply</button>
-                `;
-                commentListElement.appendChild(commentDiv);
-
-                // Recursively load replies for this comment
-                loadReplies(comment.replies, commentDiv, blogIndex, commentIndex);
-            });
-        }
-
-        // Function to load replies for each comment recursively
-        function loadReplies(replies, commentDiv, blogIndex, commentIndex) {
-            replies.forEach((reply, replyIndex) => {
-                let replyDiv = document.createElement("div");
-                replyDiv.classList.add("comment", "reply-container");
-                replyDiv.innerHTML = `
-                    <span>Reply: ${reply.text}</span> 
-                    <button onclick="likeComment(this)">👍 (0)</button> 
-                    <button class="reply-button" onclick="replyToComment(${blogIndex}, ${commentIndex}, ${replyIndex})">Reply</button>
-                `;
-                commentDiv.appendChild(replyDiv);
-
-                // Recursively load replies to this reply
-                loadReplies(reply.replies, replyDiv, blogIndex, commentIndex);
-            });
-        }
-
-        function sharePost(blogIndex) {
-            let selectedFriends = prompt("Enter friend usernames to share with (comma separated):");
-
-            if (selectedFriends) {
-                selectedFriends = selectedFriends.split(',').map(name => name.trim());
-                let blogs = JSON.parse(localStorage.getItem('blogs')) || [];
-
-            if (!blogs[blogIndex].sharedWith) {
-                blogs[blogIndex].sharedWith = [];
-            }
-
-            blogs[blogIndex].sharedWith.push(...selectedFriends);
-
-            alert(`Blog shared with: ${selectedFriends.join(', ')}`);
-            localStorage.setItem('blogs', JSON.stringify(blogs));
-            }
-        }
-
-        function repostPost(blogIndex) {
-        let blogs = JSON.parse(localStorage.getItem('blogs')) || [];
-        let originalPost = blogs[blogIndex];
-
-        let repost = {
-            ...originalPost,
-            repostedBy: 'user123',  // Replace with dynamic username if available
-            title: `[Repost] ${originalPost.title}`,
-            repostedAt: new Date().toISOString()
-        };
-
-        blogs.unshift(repost);  // Add to the top of the blog feed
-        localStorage.setItem('blogs', JSON.stringify(blogs));
-        alert("Blog reposted successfully!");
-        loadBlogs(); // Refresh the page to show the new repost
-        }
-
-
-
-        // Load blogs on page load
-        window.onload = loadBlogs;
+        })
+        .catch(err => {
+            console.error(err);
+            document.getElementById("loadingMessage").textContent = "Failed to load blogs. Please try again later.";
+        });
     </script>
 
     <div class="footer">
         <button onclick="window.location.href='search.html'">🔍 Search</button>
-        <button onclick="window.location.href='createBlog.html'">+ Create Blog</button>
         <button onclick="window.location.href='chat.html'">💬 Chat</button>
+        <button onclick="window.location.href='createBlog.html'">+ Create Blog</button>
         <button onclick="window.location.href='account.html'">👤 Account</button>
     </div>
-
 </body>
-</html> 
+</html>

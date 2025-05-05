@@ -89,13 +89,23 @@
         const response = await fetch("http://localhost:3000/register", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
         },
         body: JSON.stringify({ username, password, email, phone }),
         });
 
         if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("loggedInUser", JSON.stringify(data));
         alert("Registration successful! 😊");
+
+        // Store token and user details in sessionStorage
+        sessionStorage.setItem('authToken', data.token);
+        sessionStorage.setItem('userId', data.user.id);
+        sessionStorage.setItem('username', data.user.username);
+        sessionStorage.setItem('email', data.user.email);
+
+
         window.location.href = "blog.html"; 
         } else {
         const data = await response.json();

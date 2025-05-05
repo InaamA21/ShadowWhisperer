@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Themen – Shadow Gossip</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #000000; /
+      color: #eaeaea;
+    }
+    header, footer {
+      background-color: #1a1a1a; 
+      color: #b9a3e2;
+      text-align: center;
+      padding: 1rem;
+    }
+    nav {
+      margin-top: 1rem;
+    }
+    nav a {
+      margin: 0 1rem;
+      color: #eee;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #5900ff;
+    }
+    main {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .filter {
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: center;
+    }
+    .filter label {
+      margin-right: 10px;
+      color: #bbb;
+    }
+    .filter select {
+      padding: 0.5rem;
+      background: #261b3f;
+      color: #e0ffe0;
+      border: 1px solid #3a2e5a;
+      border-radius: 6px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: #1b132c;
+      border-radius: 8px;
+      overflow: hidden;
+      text-decoration: none;
+      color: #eee;
+      box-shadow: 0 0 12px rgba(0, 255, 100, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px rgba(50, 205, 50, 0.4);
+    }
+    .card img, .card video {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+    .card .info {
+      padding: 1rem;
+    }
+    .card h3 {
+      margin: 0.5rem 0;
+      font-size: 1.2rem;
+      color: #ff8f00 
+    }
+    .card p {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+    .author-info {
+      margin-top: 1rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    .author-info img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+    .author-info span {
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+    footer {
+      margin-top: 3rem;
+    }
+    footer p {
+      font-size: 0.9rem;
+    }
+    footer a {
+      color: #ff8f00;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    footer a:hover {
+      color: #7fff7f;
+    }
+  </style>  
+</head>
+<body>
+    <header>
+        <h1>Themenübersicht</h1>
+        <p>Wähle dein Thema – und wir liefern den Klatsch.</p>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="themen.html">Themen</a>
+          <a href="kontakt.html">Kontakt</a>
+        </nav>
+  </header>
+
+  <main>
+    <div class="filter">
+      <label for="themeSelect">Thema wählen:</label>
+      <select id="themeSelect">
+        <option value="all">Alle</option>
+        <option value="stars">Stars</option>
+        <option value="skandale">Skandale</option>
+        <option value="beziehungen">Beziehungen</option>
+      </select>
+    </div>
+
+    <section class="grid" id="articleGrid">
+      <!-- Article 1: Video -->
+      <a href="artikel1.html" class="card" data-theme="stars">
+        <video controls>
+          <source src="stress.mp4" type="video/mp4" />
+          Dein Browser unterstützt dieses Videoformat nicht.
+        </video>
+        <div class="info">
+          <h3>Stars unter Druck</h3>
+          <p>Was passiert wirklich hinter den Kulissen?</p>
+          <div class="author-info">
+            <img src="profile.jpg" alt="Autorin Lisa" />
+            <span>Lisa Schatten</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 2: Photo -->
+      <a href="artikel2.html" class="card" data-theme="beziehungen">
+        <img src="liebe.jpg" alt="Liebesdrama" />
+        <div class="info">
+          <h3>Heimliche Liebe enthüllt</h3>
+          <p>Wer liebt hier wen – und warum heimlich?</p>
+          <div class="author-info">
+            <img src="bunny.jpg" alt="Autor Max" />
+            <span>Max Dunkel</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 3: Video -->
+      <a href="artikel3.html" class="card" data-theme="skandale">
+        <video controls>
+          <source src="skandal.mp4" type="video/mp4" />
+          Dein Browser unterstützt dieses Videoformat nicht.
+        </video>
+        <div class="info">
+          <h3>Influencer im Shitstorm</h3>
+          <p>Ein Video, das alles ändert.</p>
+          <div class="author-info">
+            <img src="profile.jpg" alt="Autorin Lisa" />
+            <span>Lisa Schatten</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 4: Photo -->
+      <a href="artikel4.html" class="card" data-theme="stars">
+        <img src="star.jpg" alt="Stars" />
+        <div class="info">
+          <h3>Stars und ihre Geheimnisse</h3>
+          <p>Was sie uns nie verraten würden.</p>
+          <div class="author-info">
+            <img src="bunny.jpg" alt="Autor Max" />
+            <span>Max Dunkel</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 5: PDF -->
+      <a href="artikel5.pdf" class="card" data-theme="beziehungen" target="_blank">
+        <img src="liebe.jpg" alt="PDF" />
+        <div class="info">
+          <h3>Die geheime PDF-Akten</h3>
+          <p>Ein exklusiver Einblick in die Geheimdokumente der Beziehungskrise.</p>
+          <div class="author-info">
+            <img src="profile.jpg" alt="Autorin Lisa" />
+            <span>Lisa Schatten</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 6: Photo -->
+      <a href="artikel6.html" class="card" data-theme="skandale">
+        <img src="scandal.jpg" alt="Skandal" />
+        <div class="info">
+          <h3>Der größte Skandal des Jahres</h3>
+          <p>Ein Geheimnis, das endlich gelüftet wird.</p>
+          <div class="author-info">
+            <img src="bunny.jpg" alt="Autor Max" />
+            <span>Max Dunkel</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 7: Video -->
+      <a href="artikel7.html" class="card" data-theme="beziehungen">
+        <video controls>
+          <source src="love_story.mp4" type="video/mp4" />
+          Dein Browser unterstützt dieses Videoformat nicht.
+        </video>
+        <div class="info">
+          <h3>Die wahre Liebesgeschichte</h3>
+          <p>Eine unerzählte Geschichte von zwei berühmten Persönlichkeiten.</p>
+          <div class="author-info">
+            <img src="profile.jpg" alt="Autorin Lisa" />
+            <span>Lisa Schatten</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 8: Photo -->
+      <a href="artikel8.html" class="card" data-theme="stars">
+        <img src="star.jpg" alt="Stars" />
+        <div class="info">
+          <h3>Der geheime Star-Club</h3>
+          <p>Was sich hinter verschlossenen Türen abspielt.</p>
+          <div class="author-info">
+            <img src="bunny.jpg" alt="Autor Max" />
+            <span>Max Dunkel</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 9: Photo -->
+      <a href="artikel9.html" class="card" data-theme="skandale">
+        <img src="scandal.jpg" alt="Skandal" />
+        <div class="info">
+          <h3>Die dunkle Seite der Influencer</h3>
+          <p>Was hinter den Kulissen passiert, bleibt nicht immer geheim.</p>
+          <div class="author-info">
+            <img src="profile.jpg" alt="Autorin Lisa" />
+            <span>Lisa Schatten</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 10: Photo -->
+      <a href="artikel10.html" class="card" data-theme="beziehungen">
+        <img src="liebe.jpg" alt="Beziehungen" />
+        <div class="info">
+          <h3>Trennung oder Versöhnung?</h3>
+          <p>Eine Beziehung, die immer wieder auf die Probe gestellt wird.</p>
+          <div class="author-info">
+            <img src="bunny.jpg" alt="Autor Max" />
+            <span>Max Dunkel</span>
+          </div>
+        </div>
+      </a>
+
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Shadow Gossip <button onclick="window.location.href='secretpassword.html'"><img src="shadows.png" alt="shadows" style="width: 30px; height: auto;" /></button></p>
+  </footer>
+
+  <script>
+    const select = document.getElementById("themeSelect");
+    const cards = document.querySelectorAll(".card");
+
+    select.addEventListener("change", () => {
+      const value = select.value;
+      cards.forEach(card => {
+        card.style.display = value === "all" || card.dataset.theme === value ? "block" : "none";
+      });
+    });
+  </script>
+</body>
+</html>

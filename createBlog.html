@@ -148,8 +148,8 @@
 
     <div class="container">
         <h1>Create Your Blog</h1>
-        <!-- Updated Form -->
-        <form id="createBlogForm" action="#" method="POST" onsubmit="saveBlog(); return false;">
+        <!-- Updated Form with enctype for file upload -->
+        <form id="createBlogForm" action="#" method="POST" enctype="multipart/form-data" onsubmit="saveBlog(); return false;">
             <div class="input-field">
                 <label for="title">Blog Title</label>
                 <input type="text" id="title" name="title" required>
@@ -163,7 +163,6 @@
             <div class="input-field">
                 <label for="visibility">Visibility</label>
                 <select id="visibility" name="visibility" required>
-                    <option value="select">Select</option>
                     <option value="private">Private</option>
                     <option value="public">Public</option>
                 </select>
@@ -171,7 +170,7 @@
 
             <div class="file-upload">
                 <label for="fileUpload">Upload Files</label>
-                <input type="file" id="fileUpload" name="fileUpload[]" accept="image/*,video/*,.pdf,.doc,.docx,.txt">
+                <input type="file" id="fileUpload" name="fileUpload" accept="image/*,video/*,.pdf,.doc,.docx,.txt" multiple>
                 <button type="button" onclick="document.getElementById('fileUpload').click()">Choose Files</button>
             </div>
 
@@ -182,39 +181,55 @@
     <script>
         // Function to save the blog
         function saveBlog() {
-            const title = document.getElementById('title').value;
-            const content = document.getElementById('content').value;
-            const visibility = document.getElementById('visibility').value;
+            // Retrieve the user ID from sessionStorage
+            const loggedInUserId = sessionStorage.getItem("userId");
+            const userToken = sessionStorage.getItem("authToken");
 
-            // Create a blog object
-            const blog = {
-                title: title,
-                content: content,
-                visibility: visibility,
-                likes: 0,
-                comments: [],
-                createdBy: 'user123', // Example user ID
-                timestamp: new Date().toISOString(),
-            };
+            if (!loggedInUserId || !userToken) {
+                window.location.href = '/login.html'; // Redirect to login page if no user ID or token
+                return;
+            }
 
-            // Retrieve existing blogs from localStorage
-            let blogs = JSON.parse(localStorage.getItem('blogs')) || [];
+            // Create a new FormData object
+            const formData = new FormData();
 
-            // Add the new blog to the array
-            blogs.push(blog);
+            // Append the form data including files
+            formData.append('title', document.getElementById('title').value);
+            formData.append('content', document.getElementById('content').value);
+            formData.append('visibility', document.getElementById('visibility').value);
+            formData.append('user_id', loggedInUserId);  // Include user ID
+            formData.append('timestamp', new Date().toISOString());
 
-            // Save the updated blogs array back to localStorage
-            localStorage.setItem('blogs', JSON.stringify(blogs));
+            // Add files to FormData (if any)
+            const files = document.getElementById('fileUpload').files;
+            for (let i = 0; i < files.length; i++) {
+                formData.append('fileUpload', files[i]);
+            }
 
-            // Notify user
-            alert("Blog created successfully!");
-
-            // Redirect to blog overview page
-            window.location.href = "blog.html"; 
+            fetch('http://localhost:3000/create-blog', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${userToken}` // Include user token for authentication
+                },
+                body: formData // Use FormData as the body
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert("Blog created successfully!");
+                    window.location.href = "blog.html";
+                } else {
+                    alert("Error creating blog");
+                }
+            })
+            .catch(error => {
+                console.error('Error: ', error);
+                alert('Error creating blog');
+            });
         }
     </script>
 
-    <!-- Updated Footer -->
+    <!-- Footer Styling -->
     <div class="footer">
         <button onclick="window.location.href='search.html'">🔍 Search</button>
         <button onclick="window.location.href='chat.html'">💬 Chat</button>

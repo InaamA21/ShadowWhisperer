@@ -69,6 +69,45 @@
       <a href="forgot-password.html" style="color: #aaa; display: block; margin-top: 10px; text-decoration: none;">Forgot your password?</a>
     </div>
 
-    <script src="login.js"></script> 
+    <script>
+        const loginForm = document.getElementById("loginForm");
+        const loginUsernameInput = document.getElementById("username"); 
+        const loginPasswordInput = document.getElementById("password"); // Fixed the typo here
+
+        loginForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+            try {
+                const response = await fetch("http://localhost:3000/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        username: loginUsernameInput.value,
+                        password: loginPasswordInput.value,
+                    }),
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert("Login successful! 😊");
+                    localStorage.setItem("loggedInUser", JSON.stringify(result.user));
+
+                    // Store token and user details in sessionStorage
+                    sessionStorage.setItem('authToken', result.token);
+                    sessionStorage.setItem('userId', result.user.id);
+                    sessionStorage.setItem('username', result.user.username);
+                    sessionStorage.setItem('email', result.user.email);
+
+                    window.location.href = "blog.html"; // Redirect after successful login
+                } else {
+                    alert("Login failed: " + result.error);
+                }
+            } catch (error) {
+                alert("Error: " + error.message);
+            }
+        });
+    </script> 
 </body>
 </html>

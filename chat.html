@@ -168,15 +168,31 @@
 
   <script>
     let currentUser = null;
-    const friends = JSON.parse(localStorage.getItem("friends")) || [];
+
+    // Define personalities
+      const personalities = {
+      Gurl: msg => `😂 OMG ${msg}? That's so YOU!`,
+      Hana: msg => `💔 I can't believe you said "${msg}"... dramatic gasp`,
+      Eli: msg => `😎 I'm too cool for you`,
+      Robin: msg => `🤖 Beep bop! ${msg} sounds... emotionally confusing to a bot.`,
+      Alice: msg => `👀 Did you really just say "${msg}"? Wow.`,
+      Dave: msg => `🎭 That message was a rollercoaster... bravo 👏`,
+      Abi: msg => `😱 AAH! You scared me with "${msg}"!`,
+      Alein: msg => `✨ Manifesting good vibes after reading "${msg}" ✨`,
+      Azar: msg => `🍕 Let's forget "${msg}" and order pizza.`,
+      Nori: msg => `🥲 Okey...`
+    };
+
+    const friends = Object.keys(personalities);
+  
     const messages = {};
-
-    // Setup message storage
     friends.forEach(friend => {
-      messages[friend] = [];
-    });
-
-    // Build sidebar
+    messages[friend] = [
+      { text: "hi", type: "sent" },
+      { text: "hi", type: "received" }
+    ];
+  });
+  
     const sidebar = document.getElementById("sidebar");
     friends.forEach((friend, index) => {
       const contact = document.createElement("div");
@@ -190,20 +206,19 @@
       contact.onclick = () => switchChat(friend);
       sidebar.appendChild(contact);
     });
-
+  
     function switchChat(userName) {
       const allContacts = document.querySelectorAll('.contact');
       allContacts.forEach(contact => contact.classList.remove('active'));
-
       document.getElementById(userName).classList.add('active');
       currentUser = userName;
       updateChatArea();
     }
-
+  
     function updateChatArea() {
       const messagesContainer = document.getElementById('messages-container');
       messagesContainer.innerHTML = '';
-
+  
       const userMessages = messages[currentUser] || [];
       userMessages.forEach(message => {
         const messageElement = document.createElement('div');
@@ -212,39 +227,43 @@
         messagesContainer.appendChild(messageElement);
       });
     }
-
+  
     function sendMessage() {
       const messageInput = document.getElementById('message-input');
       const messageText = messageInput.value.trim();
-      
+  
       if (messageText && currentUser) {
         const sentMessage = { text: messageText, type: "sent" };
         messages[currentUser].push(sentMessage);
-
+  
         const messagesContainer = document.getElementById('messages-container');
         const sentMessageElement = document.createElement('div');
         sentMessageElement.classList.add('message', 'sent');
         sentMessageElement.textContent = messageText;
         messagesContainer.appendChild(sentMessageElement);
-        
+  
         messageInput.value = '';
-
+  
         setTimeout(() => {
-          sentMessageElement.style.display = 'none';
-        }, 2000);
-
-        setTimeout(() => {
-          const receivedMessage = { text: `Thanks for your message!`, type: "received" };
+          const replyGenerator = personalities[currentUser] || (msg => `Hmm... "${msg}", interesting.`);
+          const replyText = replyGenerator(messageText);
+  
+          const receivedMessage = {
+            text: replyText,
+            type: "received"
+          };
           messages[currentUser].push(receivedMessage);
-
+  
           const receivedMessageElement = document.createElement('div');
           receivedMessageElement.classList.add('message', 'received');
           receivedMessageElement.textContent = receivedMessage.text;
           messagesContainer.appendChild(receivedMessageElement);
-        }, 1500);
+  
+          messagesContainer.removeChild(sentMessageElement);
+        }, 1200);
       }
     }
-
+  
     document.addEventListener('keydown', function (e) {
       if (
         e.key === 'PrintScreen' ||
@@ -256,7 +275,7 @@
         activateScreenshotBlock();
       }
     });
-
+  
     function activateScreenshotBlock() {
       const blockElement = document.getElementById('screenshot-block');
       blockElement.style.display = 'block';
@@ -264,8 +283,8 @@
         blockElement.style.display = 'none';
       }, 2000);
     }
-
+  
     if (friends.length > 0) updateChatArea();
-  </script>
+  </script>  
 </body>
 </html>

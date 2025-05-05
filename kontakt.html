@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kontakt – Shadow Gossip</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #121212;
+      color: #eee;
+    }
+    header, footer {
+      background: #1a1a1a;
+      text-align: center;
+      padding: 1.5rem;
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      letter-spacing: 3px;
+      color: #b9a3e2;
+      margin: 0;
+    }
+    header p {
+      font-size: 1rem;
+      color: #ff8f00;
+    }
+    nav {
+      margin-top: 1rem;
+    }
+    nav a {
+      margin: 0 1rem;
+      color: #eee;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #5900ff;
+    }
+    main {
+      padding: 3rem 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .section-title {
+      font-size: 2rem;
+      text-align: center;
+      color: #b9a3e2;
+      margin-bottom: 1.5rem;
+    }
+    .author-info {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+    .author-card {
+      background: #1e1e1e;
+      border-radius: 12px;
+      padding: 1.5rem;
+      flex: 1 1 250px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .author-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+    }
+    .author-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .contact-form {
+      background: #1e1e1e;
+      padding: 2.5rem;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+    .contact-form input, .contact-form select, .contact-form textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin-top: 0.8rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid #444;
+      background: #2a2a2a;
+      color: #fff;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    .contact-form button {
+      padding: 0.8rem 1.5rem;
+      background: #5900ff;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    .contact-form button:hover {
+      background: #4d00e6;
+    }
+    footer p {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    footer a {
+      color: #ff8f00;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    footer a:hover {
+      color: #5900ff;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .author-info {
+        flex-direction: column;
+        align-items: center;
+      }
+      .author-card {
+        width: 100%;
+        margin-bottom: 2rem;
+      }
+      .contact-form input, .contact-form select, .contact-form textarea {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Kontakt & Redaktion</h1>
+    <p>Schreib uns deine Fragen, Anmerkungen und mehr!</p>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="themen.html">Themen</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="author-info">
+      <h2 class="section-title">📢 Unsere Autoren</h2>
+      <br>
+      <div class="author-card">
+        <img src="profile.jpg" alt="Autorin Lisa" />
+        <div>
+          <strong>Lisa Schatten</strong><br />
+          Chefredakteurin & Investigativ<br />
+          lisa@shadow-gossip.de
+        </div>
+      </div>
+      <div class="author-card">
+        <img src="bunny.jpg" alt="Autor Max" />
+        <div>
+          <strong>Max Dunkel</strong><br />
+          Gerüchte & Social Media<br />
+          max@shadow-gossip.de
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-form">
+      <h2 class="section-title">📬 Schreib uns eine Nachricht</h2>
+      <form onsubmit="event.preventDefault(); alert('Nachricht versendet!');">
+        <label for="name">Dein Name</label>
+        <input type="text" id="name" required />
+
+        <label for="email">Deine E-Mail</label>
+        <input type="email" id="email" required />
+
+        <label for="subject">Betreff</label>
+        <select id="subject" required>
+          <option value="">Bitte wählen</option>
+          <option value="technik">Technisches Problem</option>
+          <option value="inhalt">Inhaltliche Frage</option>
+          <option value="feedback">Feedback / Vorschlag</option>
+        </select>
+
+        <label for="message">Nachricht</label>
+        <textarea id="message" rows="6" required></textarea>
+
+        <button type="submit">Absenden</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Shadow</p>
+    <a href="index.html">Zurück zur Startseite</a>
+  </footer>
+</body>
+</html>

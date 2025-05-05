@@ -5,154 +5,154 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Account from other user</title>
   <style>
-body {
-  font-family: Arial, sans-serif;
-  background-color: #2f2f2f;
-  color: #e0e0e0;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  overflow: hidden;  /* Ensure no unwanted scrolling happens */
-}
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #2f2f2f;
+      color: #e0e0e0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;  /* Ensure no unwanted scrolling happens */
+    }
 
-.profile-section {
-  display: flex;
-  justify-content: center;
-  background-color: #333;
-  padding: 20px;
-  border-bottom: 1px solid #444;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-}
+    .profile-section {
+      display: flex;
+      justify-content: center;
+      background-color: #333;
+      padding: 20px;
+      border-bottom: 1px solid #444;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    }
 
-.profile-section img {
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  margin-right: 20px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-}
+    .profile-section img {
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      margin-right: 20px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    }
 
-.profile-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
 
-.profile-info h2 {
-  margin: 0;
-  font-size: 20px;
-  color: #fff;
-}
+    .profile-info h2 {
+      margin: 0;
+      font-size: 20px;
+      color: #fff;
+    }
 
-.profile-info p {
-  font-size: 14px;
-  color: #aaa;
-}
+    .profile-info p {
+      font-size: 14px;
+      color: #aaa;
+    }
 
-.feed {
-  overflow-y: auto;
-  flex-grow: 1;
-  padding: 20px;
-  padding-bottom: 60px;  /* Make space for the footer */
-}
+    .feed {
+      overflow-y: auto;
+      flex-grow: 1;
+      padding: 20px;
+      padding-bottom: 60px;  /* Make space for the footer */
+    }
 
-.feed .section {
-  margin-bottom: 20px;
-  background-color: #444;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-}
+    .feed .section {
+      margin-bottom: 20px;
+      background-color: #444;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    }
 
-.feed .section h3 {
-  font-size: 18px;
-  margin-bottom: 10px;
-  color: #fff;
-}
+    .feed .section h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #fff;
+    }
 
-.feed .section ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+    .feed .section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
 
-.feed .section ul li {
-  background-color: #555;
-  margin-bottom: 10px;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-}
+    .feed .section ul li {
+      background-color: #555;
+      margin-bottom: 10px;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    }
 
-.feed .section ul li h4 {
-  margin: 0;
-  font-size: 16px;
-  color: #fff;
-}
+    .feed .section ul li h4 {
+      margin: 0;
+      font-size: 16px;
+      color: #fff;
+    }
 
-.feed .section ul li p {
-  font-size: 14px;
-  color: #ccc;
-}
+    .feed .section ul li p {
+      font-size: 14px;
+      color: #ccc;
+    }
 
-.footer {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  background-color: #1c1c1c;
-  padding: 10px 0;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
-  z-index: 10;
-  backdrop-filter: blur(8px);
-  border-top: 1px solid #2a2a2a;
-  gap: 10px;
-  flex-wrap: wrap;
-}
+    .footer {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      background-color: #1c1c1c;
+      padding: 10px 0;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+      z-index: 10;
+      backdrop-filter: blur(8px);
+      border-top: 1px solid #2a2a2a;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
 
-.footer button {
-  background: #2a2a2a;
-  color: #b0ffb0;
-  border: 1px solid #3a3a3a;
-  padding: 12px 20px;
-  font-size: 16px;
-  font-family: 'Segoe UI', sans-serif;
-  border-radius: 12px;
-  cursor: pointer;
-  box-shadow:
-    inset -2px -2px 4px rgba(255, 255, 255, 0.05),
-    inset 2px 2px 8px rgba(0, 255, 100, 0.06),
-    4px 4px 12px rgba(0, 0, 0, 0.6);
-  transition: all 0.3s ease;
-}
+    .footer button {
+      background: #2a2a2a;
+      color: #b0ffb0;
+      border: 1px solid #3a3a3a;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-family: 'Segoe UI', sans-serif;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow:
+        inset -2px -2px 4px rgba(255, 255, 255, 0.05),
+        inset 2px 2px 8px rgba(0, 255, 100, 0.06),
+        4px 4px 12px rgba(0, 0, 0, 0.6);
+      transition: all 0.3s ease;
+    }
 
-.footer button:hover {
-  background: #333;
-  color: #e8ffe8;
-  box-shadow:
-    0 0 12px rgba(0, 255, 120, 0.2),
-    0 0 20px rgba(0, 255, 100, 0.05),
-    inset 0 0 6px rgba(0, 255, 100, 0.15);
-  transform: translateY(-1px) scale(1.03);
-}
+    .footer button:hover {
+      background: #333;
+      color: #e8ffe8;
+      box-shadow:
+        0 0 12px rgba(0, 255, 120, 0.2),
+        0 0 20px rgba(0, 255, 100, 0.05),
+        inset 0 0 6px rgba(0, 255, 100, 0.15);
+      transform: translateY(-1px) scale(1.03);
+    }
 
-.add-friend-btn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
+    .add-friend-btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
 
-.add-friend-btn:hover {
-  background-color: #45a049;
-}
+    .add-friend-btn:hover {
+      background-color: #45a049;
+    }
   </style>
 </head>
 <body>
@@ -161,8 +161,8 @@ body {
   <div class="profile-section">
     <img src="profile.jpg" alt="Profile Picture" id="profilePic" />
     <div class="profile-info">
-      <h2 id="username">John Doe</h2>
-      <p id="email">john.doe@example.com</p>
+      <h2 id="username">Loading...</h2>
+      <p id="email">Loading...</p>
       <button class="add-friend-btn" id="addFriendBtn">+ Add Friend</button>
     </div>
   </div>
@@ -190,7 +190,6 @@ body {
     <ul id="friendRequestsList"></ul>
   </div>
 
-
   <!-- Unified Footer -->
   <div class="footer">
     <button onclick="window.location.href='search.html'">🔍 Search</button>
@@ -201,7 +200,109 @@ body {
     <button onclick="window.location.href='secretpassword.html'"><img src="shadows.png" alt="shadows" style="width: 30px; height: auto;" /></button>
   </div>
 
-  <script src="account.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Retrieve the user token and userId from sessionStorage
+      const userToken = sessionStorage.getItem("authToken");
+      const loggedInUserId = sessionStorage.getItem("userId");
+  
+      if (!userToken || !loggedInUserId) {
+        window.location.href = '/login.html'; // Redirect to login page if no token/user ID found
+        return;
+      }
+  
+      // Fetch User Profile Information
+      async function loadProfile() {
+        try {
+          const response = await fetch(`http://127.0.0.1:3000/user/profile/${loggedInUserId}`, {
+            headers: {
+              "Authorization": `Bearer ${userToken}`,
+            }
+          });
+          const data = await response.json();
+  
+          // Display user info
+          document.getElementById("username").textContent = data.username;
+          document.getElementById("email").textContent = data.email;
+          document.getElementById("profilePic").src = data.profilePictureUrl; // Ensure this URL is correct
+        } catch (error) {
+          console.error("Error loading profile:", error);
+          alert("Failed to load profile.");
+        }
+      }
+  
+      // Fetch Pending Friend Requests
+      async function loadPendingFriendRequests() {
+        try {
+          const response = await fetch(`http://127.0.0.1:3000/friend-requests/${loggedInUserId}`, {
+            headers: {
+              "Authorization": `Bearer ${userToken}`,
+            }
+          });
+          const data = await response.json();
+  
+          const friendRequestsList = document.getElementById("friendRequestsList");
+          friendRequestsList.innerHTML = "";
+  
+          if (data.length === 0) {
+            friendRequestsList.innerHTML = "<li>No pending friend requests.</li>";
+          } else {
+            data.forEach(request => {
+              const li = document.createElement("li");
+              li.innerHTML = `
+                <strong>Request from User ID: ${request.sender_id}</strong>
+                <button onclick="acceptRequest(${request.id})">Accept</button>
+                <button onclick="rejectRequest(${request.id})">Reject</button>
+              `;
+              friendRequestsList.appendChild(li);
+            });
+          }
+        } catch (error) {
+          console.error("Error loading friend requests:", error);
+          alert("Failed to load friend requests.");
+        }
+      }
+  
+      // Function to accept friend request
+      async function acceptRequest(requestId) {
+        await respondToRequest(requestId, "accepted");
+      }
+  
+      // Function to reject friend request
+      async function rejectRequest(requestId) {
+        await respondToRequest(requestId, "rejected");
+      }
+  
+      // Send the response to accept or reject the friend request
+      async function respondToRequest(requestId, action) {
+        try {
+          const response = await fetch("http://127.0.0.1:3000/friends/respond", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${sessionStorage.getItem("authToken")}`
+            },
+            body: JSON.stringify({ requestId, action })
+          });
+  
+          const result = await response.json();
+          if (response.ok) {
+            alert(result.message);
+            loadPendingFriendRequests();  // Refresh the list
+          } else {
+            alert(result.error || "Something went wrong.");
+          }
+        } catch (error) {
+          console.error("Error responding to request:", error);
+        }
+      }
+  
+      // Call functions to load profile data and friend requests
+      loadProfile();
+      loadPendingFriendRequests();
+    });
+  </script>
+  
 
 </body>
 </html>
