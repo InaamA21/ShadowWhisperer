@@ -5,30 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Themen – Shadow Gossip</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: #000000; /
+      background: #000;
       color: #eaeaea;
     }
     header, footer {
-      background-color: #1a1a1a; 
+      background-color: #1a1a1a;
       color: #b9a3e2;
       text-align: center;
       padding: 1rem;
-    }
-    nav {
-      margin-top: 1rem;
     }
     nav a {
       margin: 0 1rem;
       color: #eee;
       text-decoration: none;
-      font-size: 1rem;
-      transition: color 0.3s;
     }
     nav a:hover {
       color: #5900ff;
@@ -63,10 +56,10 @@
       background: #1b132c;
       border-radius: 8px;
       overflow: hidden;
-      text-decoration: none;
       color: #eee;
       box-shadow: 0 0 12px rgba(0, 255, 100, 0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      padding-bottom: 1rem;
     }
     .card:hover {
       transform: scale(1.03);
@@ -77,15 +70,14 @@
       height: 160px;
       object-fit: cover;
     }
-    .card .info {
+    .info {
       padding: 1rem;
     }
-    .card h3 {
+    h3 {
       margin: 0.5rem 0;
-      font-size: 1.2rem;
-      color: #ff8f00 
+      color: #ff8f00;
     }
-    .card p {
+    p {
       font-size: 0.9rem;
       color: #ccc;
     }
@@ -100,25 +92,78 @@
       height: 40px;
       border-radius: 50%;
     }
-    .author-info span {
-      font-size: 0.9rem;
-      color: #aaa;
+    .comment-list {
+      list-style: none;
+      padding-left: 0;
     }
-    footer {
-      margin-top: 3rem;
+    .comment-item {
+      background: #1a1a1a;
+      padding: 0.7rem;
+      border-radius: 6px;
+      margin-bottom: 1rem;
     }
-    footer p {
-      font-size: 0.9rem;
+    .comment-content {
+      color: #ccc;
     }
-    footer a {
-      color: #ff8f00;
-      text-decoration: none;
-      font-weight: bold;
+    .comment-replies {
+      margin-top: 0.5rem;
+      margin-left: 1rem;
+      border-left: 2px solid #333;
+      padding-left: 1rem;
     }
-    footer a:hover {
+    .reply-btn {
+      background: none;
+      border: none;
       color: #7fff7f;
+      cursor: pointer;
+      font-size: 0.85rem;
+      margin-top: 0.3rem;
     }
-  </style>  
+    .reply-form {
+      margin-top: 0.5rem;
+    }
+    .reply-input {
+      width: 100%;
+      padding: 0.4rem;
+      background: #2a2a2a;
+      border: 1px solid #444;
+      color: #eee;
+      border-radius: 4px;
+      margin-bottom: 0.4rem;
+    }
+    .like-button {
+      background: none;
+      border: none;
+      color: #ff8f00;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+    .like-button:hover {
+      color: #ffcc00;
+    }
+    .comment-input {
+      width: 100%;
+      padding: 0.4rem;
+      margin-top: 1rem;
+      border-radius: 4px;
+      border: 1px solid #444;
+      background: #2a2a2a;
+      color: #eee;
+    }
+    .add-comment {
+      margin-top: 0.5rem;
+      padding: 0.4rem 0.7rem;
+      background: #444;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .interaction {
+      padding: 0 1rem;
+    }
+  </style> 
 </head>
 <body>
     <header>
@@ -144,7 +189,7 @@
 
     <section class="grid" id="articleGrid">
       <!-- Article 1: Video -->
-      <a href="artikel1.html" class="card" data-theme="stars">
+      <a class="card" data-theme="stars">
         <video controls>
           <source src="stress.mp4" type="video/mp4" />
           Dein Browser unterstützt dieses Videoformat nicht.
@@ -157,10 +202,20 @@
             <span>Lisa Schatten</span>
           </div>
         </div>
+        <div class="interaction">
+            <div class="comments">
+              <input type="text" placeholder="Kommentar schreiben..." class="comment-input" />
+              <button class="add-comment">Kommentieren</button>
+              <ul class="comment-list"></ul>
+            </div>
+            <div class="article-like">
+              <button class="like-button">❤️ <span class="like-count">0</span></button>
+            </div>
+          </div>
       </a>
 
       <!-- Article 2: Photo -->
-      <a href="artikel2.html" class="card" data-theme="beziehungen">
+      <a class="card" data-theme="beziehungen">
         <img src="liebe.jpg" alt="Liebesdrama" />
         <div class="info">
           <h3>Heimliche Liebe enthüllt</h3>
@@ -170,10 +225,20 @@
             <span>Max Dunkel</span>
           </div>
         </div>
+        <div class="interaction">
+            <div class="comments">
+              <input type="text" placeholder="Kommentar schreiben..." class="comment-input" />
+              <button class="add-comment">Kommentieren</button>
+              <ul class="comment-list"></ul>
+            </div>
+            <div class="article-like">
+              <button class="like-button">❤️ <span class="like-count">0</span></button>
+            </div>
+          </div>
       </a>
 
       <!-- Article 3: Video -->
-      <a href="artikel3.html" class="card" data-theme="skandale">
+      <a class="card" data-theme="skandale">
         <video controls>
           <source src="skandal.mp4" type="video/mp4" />
           Dein Browser unterstützt dieses Videoformat nicht.
@@ -186,10 +251,20 @@
             <span>Lisa Schatten</span>
           </div>
         </div>
+        <div class="interaction">
+            <div class="comments">
+              <input type="text" placeholder="Kommentar schreiben..." class="comment-input" />
+              <button class="add-comment">Kommentieren</button>
+              <ul class="comment-list"></ul>
+            </div>
+            <div class="article-like">
+              <button class="like-button">❤️ <span class="like-count">0</span></button>
+            </div>
+          </div>
       </a>
 
       <!-- Article 4: Photo -->
-      <a href="artikel4.html" class="card" data-theme="stars">
+      <a class="card" data-theme="stars">
         <img src="star.jpg" alt="Stars" />
         <div class="info">
           <h3>Stars und ihre Geheimnisse</h3>
@@ -199,10 +274,20 @@
             <span>Max Dunkel</span>
           </div>
         </div>
+        <div class="interaction">
+            <div class="comments">
+              <input type="text" placeholder="Kommentar schreiben..." class="comment-input" />
+              <button class="add-comment">Kommentieren</button>
+              <ul class="comment-list"></ul>
+            </div>
+            <div class="article-like">
+              <button class="like-button">❤️ <span class="like-count">0</span></button>
+            </div>
+          </div>
       </a>
 
       <!-- Article 5: PDF -->
-      <a href="artikel5.pdf" class="card" data-theme="beziehungen" target="_blank">
+      <a class="card" data-theme="beziehungen" target="_blank">
         <img src="liebe.jpg" alt="PDF" />
         <div class="info">
           <h3>Die geheime PDF-Akten</h3>
@@ -212,10 +297,20 @@
             <span>Lisa Schatten</span>
           </div>
         </div>
+        <div class="interaction">
+            <div class="comments">
+              <input type="text" placeholder="Kommentar schreiben..." class="comment-input" />
+              <button class="add-comment">Kommentieren</button>
+              <ul class="comment-list"></ul>
+            </div>
+            <div class="article-like">
+              <button class="like-button">❤️ <span class="like-count">0</span></button>
+            </div>
+          </div>
       </a>
 
       <!-- Article 6: Photo -->
-      <a href="artikel6.html" class="card" data-theme="skandale">
+      <a class="card" data-theme="skandale">
         <img src="scandal.jpg" alt="Skandal" />
         <div class="info">
           <h3>Der größte Skandal des Jahres</h3>
@@ -225,10 +320,20 @@
             <span>Max Dunkel</span>
           </div>
         </div>
+        <div class="interaction">
+            <div class="comments">
+              <input type="text" placeholder="Kommentar schreiben..." class="comment-input" />
+              <button class="add-comment">Kommentieren</button>
+              <ul class="comment-list"></ul>
+            </div>
+            <div class="article-like">
+              <button class="like-button">❤️ <span class="like-count">0</span></button>
+            </div>
+          </div>
       </a>
 
       <!-- Article 7: Video -->
-      <a href="artikel7.html" class="card" data-theme="beziehungen">
+      <a class="card" data-theme="beziehungen">
         <video controls>
           <source src="love_story.mp4" type="video/mp4" />
           Dein Browser unterstützt dieses Videoformat nicht.
@@ -241,10 +346,20 @@
             <span>Lisa Schatten</span>
           </div>
         </div>
+        <div class="interaction">
+            <div class="comments">
+              <input type="text" placeholder="Kommentar schreiben..." class="comment-input" />
+              <button class="add-comment">Kommentieren</button>
+              <ul class="comment-list"></ul>
+            </div>
+            <div class="article-like">
+              <button class="like-button">❤️ <span class="like-count">0</span></button>
+            </div>
+          </div>
       </a>
 
       <!-- Article 8: Photo -->
-      <a href="artikel8.html" class="card" data-theme="stars">
+      <a class="card" data-theme="stars">
         <img src="star.jpg" alt="Stars" />
         <div class="info">
           <h3>Der geheime Star-Club</h3>
@@ -254,10 +369,20 @@
             <span>Max Dunkel</span>
           </div>
         </div>
+        <div class="interaction">
+            <div class="comments">
+              <input type="text" placeholder="Kommentar schreiben..." class="comment-input" />
+              <button class="add-comment">Kommentieren</button>
+              <ul class="comment-list"></ul>
+            </div>
+            <div class="article-like">
+              <button class="like-button">❤️ <span class="like-count">0</span></button>
+            </div>
+          </div>
       </a>
 
       <!-- Article 9: Photo -->
-      <a href="artikel9.html" class="card" data-theme="skandale">
+      <a class="card" data-theme="skandale">
         <img src="scandal.jpg" alt="Skandal" />
         <div class="info">
           <h3>Die dunkle Seite der Influencer</h3>
@@ -267,10 +392,20 @@
             <span>Lisa Schatten</span>
           </div>
         </div>
+        <div class="interaction">
+            <div class="comments">
+              <input type="text" placeholder="Kommentar schreiben..." class="comment-input" />
+              <button class="add-comment">Kommentieren</button>
+              <ul class="comment-list"></ul>
+            </div>
+            <div class="article-like">
+              <button class="like-button">❤️ <span class="like-count">0</span></button>
+            </div>
+          </div>
       </a>
 
       <!-- Article 10: Photo -->
-      <a href="artikel10.html" class="card" data-theme="beziehungen">
+      <a class="card" data-theme="beziehungen">
         <img src="liebe.jpg" alt="Beziehungen" />
         <div class="info">
           <h3>Trennung oder Versöhnung?</h3>
@@ -280,6 +415,16 @@
             <span>Max Dunkel</span>
           </div>
         </div>
+        <div class="interaction">
+            <div class="comments">
+              <input type="text" placeholder="Kommentar schreiben..." class="comment-input" />
+              <button class="add-comment">Kommentieren</button>
+              <ul class="comment-list"></ul>
+            </div>
+            <div class="article-like">
+              <button class="like-button">❤️ <span class="like-count">0</span></button>
+            </div>
+          </div>
       </a>
 
     </section>
@@ -288,6 +433,7 @@
   <footer>
     <p>&copy; 2025 Shadow Gossip <button onclick="window.location.href='secretpassword.html'"><img src="shadows.png" alt="shadows" style="width: 30px; height: auto;" /></button></p>
   </footer>
+
 
   <script>
     const select = document.getElementById("themeSelect");
@@ -299,6 +445,86 @@
         card.style.display = value === "all" || card.dataset.theme === value ? "block" : "none";
       });
     });
-  </script>
+
+    function createComment(text) {
+      const li = document.createElement("li");
+      li.classList.add("comment-item");
+
+      const content = document.createElement("div");
+      content.classList.add("comment-content");
+      content.textContent = text;
+
+      const commentLike = document.createElement("button");
+      commentLike.classList.add("like-button");
+      commentLike.innerHTML = `❤️ <span class="like-count">0</span>`;
+      commentLike.addEventListener("click", () => {
+        const countEl = commentLike.querySelector(".like-count");
+        countEl.textContent = parseInt(countEl.textContent) + 1;
+      });
+
+      const replyBtn = document.createElement("button");
+      replyBtn.classList.add("reply-btn");
+      replyBtn.textContent = "Antworten";
+
+      const repliesContainer = document.createElement("ul");
+      repliesContainer.classList.add("comment-replies");
+
+      replyBtn.addEventListener("click", () => {
+        if (li.querySelector(".reply-form")) return;
+
+        const form = document.createElement("div");
+        form.classList.add("reply-form");
+
+        const input = document.createElement("input");
+        input.placeholder = "Antwort schreiben...";
+        input.classList.add("reply-input");
+
+        const sendBtn = document.createElement("button");
+        sendBtn.textContent = "Senden";
+        sendBtn.classList.add("add-comment");
+
+        form.appendChild(input);
+        form.appendChild(sendBtn);
+        li.appendChild(form);
+
+        sendBtn.addEventListener("click", () => {
+          const replyText = input.value.trim();
+          if (replyText) {
+            const replyComment = createComment(replyText);
+            repliesContainer.appendChild(replyComment);
+            form.remove();
+          }
+        });
+      });
+
+      li.appendChild(content);
+      li.appendChild(replyBtn);
+      li.appendChild(commentLike);
+      li.appendChild(repliesContainer);
+      return li;
+    }
+
+    document.querySelectorAll(".card").forEach(card => {
+      const commentInput = card.querySelector(".comment-input");
+      const addCommentBtn = card.querySelector(".add-comment");
+      const commentList = card.querySelector(".comment-list");
+
+      addCommentBtn.addEventListener("click", () => {
+        const text = commentInput.value.trim();
+        if (text) {
+          const newComment = createComment(text);
+          commentList.appendChild(newComment);
+          commentInput.value = "";
+        }
+      });
+
+      const likeBtn = card.querySelector(".like-button");
+      const likeCount = likeBtn.querySelector(".like-count");
+
+      likeBtn.addEventListener("click", () => {
+        likeCount.textContent = parseInt(likeCount.textContent) + 1;
+      });
+    });
+  </script> 
 </body>
 </html>
